@@ -17,12 +17,12 @@
 | Game output (static) | Room description; result of input field; list of objects in room |
 
 
-## Initial thoughts game building
+## Initial thoughts on game building
 <dl>
 <dt>Classes and objects</dt>
 <dd>I am thinking that the easiest way to create a room that loads when the player reaches a certain point is having a set of x/y entry and exit coordinates. When the user reaches the x/y coordinates, it triggers an object creation from class Room (or, eventually, corridor / maze) that redraws the canvas. <i>Problem: I foresee running into the conundrum "How do you create a class object using an existing object as an argument?" I've looked into this already in relation to another project I've been thinking about and have come up with nothing.</i></dd>
 <dt>Items & input</dt>
-<dd>The original game's parser wasn't very sophisticated; it shouldn't be hard to come up with a way of searching a string for certain keywords and comparing them to the list of items. A rudimentary version of this already exists [here](https://github.com/jlr7245/castleadventure/tree/master/pieces) , although I need to link the item and the user's action.</dd>
+<dd>The original game's parser wasn't very sophisticated; it shouldn't be hard to come up with a way of searching a string for certain keywords and comparing them to the list of items. A rudimentary version of this already exists, although I need to link the item and the user's action.</dd>
 <dt>Monsters</dt>
 <dd>Originally, the monsters' speed and fight power was determined by the computer's processing speed -- of course, this is going to be handled a little differently -- perhaps on a collision event the user or the monster's "hit points" will be decreased. The more difficult conundrum is going to be figuring out how to make a monster that can "see" the user if there's nothing between it and the user.</dd>
 <dt>User</dt>
@@ -48,4 +48,16 @@
 - ***Loss scenario***
 
 #### Level 1
-- Addition of ogres to fight
+- Addition of ogres to fight... ogres will need their own initial-position and speed. 
+- ***Fight-based loss scenario***
+
+#### Level 2
+- Addition of maze rooms
+- Expansion of game - up to 40 rooms
+- Fairy and Vampire-type monsters
+
+#### Level 3
+- Exact, complete duplicate of original game
+
+#### Level 4 _Pie in the Sky_
+- Generative version of the game - rooms are created on the fly without being specifically defined
