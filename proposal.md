@@ -31,6 +31,7 @@
 <dd>Return to these once level 2 is reached.</dd>
 </dl>
 
+
 ## Levels of completion
 #### Level -2
 - Two rooms
@@ -50,14 +51,19 @@
 #### Level 1
 - Addition of ogres to fight... ogres will need their own initial-position and speed. 
 - ***Fight-based loss scenario***
+- Easter egg: keycode combo that will make the monster run at the CPU's speed
 
 #### Level 2
 - Addition of maze rooms
-- Expansion of game - up to 40 rooms
 - Fairy and Vampire-type monsters
 
 #### Level 3
-- Exact, complete duplicate of original game
+- Expansion of game - up to 40 rooms
+- Scoring system
 
-#### Level 4 _Castle's Sky_
+#### Level 4
+- Exact, complete duplicate of original game
+- Memory of high score
+
+#### Level 5 _Castle's Sky_
 - Generative version of the game - rooms are created on the fly without being specifically defined. Sort of like a very low-level version of No Man's Sky.
