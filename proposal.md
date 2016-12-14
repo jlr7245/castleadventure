@@ -67,3 +67,8 @@
 
 #### Level 5 _Castle's Sky_
 - Generative version of the game - rooms are created on the fly without being specifically defined. Sort of like a very low-level version of No Man's Sky.
+
+
+## Links and Resources
+- [jCanvas](http://projects.calebevans.me/jcanvas/)
+- [Passing object as a parameter](http://stackoverflow.com/questions/4743030/passing-object-as-parameter-to-constructor-function-and-copy-its-properties-to-t)
