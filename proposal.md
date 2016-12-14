@@ -59,5 +59,5 @@
 #### Level 3
 - Exact, complete duplicate of original game
 
-#### Level 4 _Pie in the Sky_
-- Generative version of the game - rooms are created on the fly without being specifically defined
+#### Level 4 _Castle's Sky_
+- Generative version of the game - rooms are created on the fly without being specifically defined. Sort of like a very low-level version of No Man's Sky.
