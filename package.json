@@ -1,0 +1,28 @@
+{
+  "name": "castleadventure",
+  "version": "1.0.0",
+  "description": "A remake of the classic 1984 DOS game.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jlr7245/castleadventure.git"
+  },
+  "keywords": [
+    "game",
+    "dos"
+  ],
+  "author": "J Silverstein",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jlr7245/castleadventure/issues"
+  },
+  "homepage": "https://github.com/jlr7245/castleadventure#readme",
+  "devDependencies": {
+    "eslint": "^3.12.1",
+    "eslint-config-airbnb-base": "^11.0.0",
+    "eslint-plugin-import": "^2.2.0"
+  }
+}
