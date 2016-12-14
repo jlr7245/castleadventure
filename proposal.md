@@ -7,8 +7,15 @@
 - For more information, see [The Key to the Castle](http://www.thealmightyguru.com/Reviews/CastleAdventure/CA-TheGame.html)
 
 ![Wireframe](assets/wireframe.jpg)
+
 | Element | Aspects |
 | --- | --- |
 | Player input | Input field; player icon (moved with arrow keys) |
 | Game output (interactable) | Room (walls, entry & exit points, player position); objects (can be picked up & looked at); monsters (can be fought); player initial position |
 | Game output (static) | Room description; result of input field; list of objects in room |
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
