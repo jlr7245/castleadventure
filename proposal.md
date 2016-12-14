@@ -8,7 +8,7 @@
 
 ![Wireframe](assets/wireframe.jpg)
 | Element | Aspects |
-| --- | --- | --- |
+| --- | --- |
 | Player input | Input field; player icon (moved with arrow keys) |
 | Game output (interactable) | Room (walls, entry & exit points, player position); objects (can be picked up & looked at); monsters (can be fought); player initial position |
 | Game output (static) | Room description; result of input field; list of objects in room |
