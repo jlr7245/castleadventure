@@ -1,15 +1,18 @@
 ///Motion with canvas from http://jsfiddle.net/epistemex/r63Nh/
 
 var Keys = {
-        up: false,
-        down: false,
-        left: false,
-        right: false
-    },
-    ctx = canvas.getContext('2d'),
-    dx = 0,
-    dy = 0,
-    ptr;
+  up: false,
+  down: false,
+  left: false,
+  right: false
+},
+
+
+
+ctx = canvas.getContext('2d'),
+dx = 0,
+dy = 0,
+ptr;
 
 // create tile
 ctx.fillStyle = '#592';
@@ -29,20 +32,20 @@ ctx.fillStyle = ptr;
 render();
 
 window.onkeydown = function(e) {
-    var kc = e.keyCode;
-    e.preventDefault();
+  var kc = e.keyCode;
+  e.preventDefault();
 
-    if (kc === 37) Keys.left = true;
+  if (kc === 37) Keys.left = true;
     else if (kc === 38) Keys.up = true;
     else if (kc === 39) Keys.right = true;
     else if (kc === 40) Keys.down = true;
 };
 
 window.onkeyup = function(e) {
-    var kc = e.keyCode;
-    e.preventDefault();
+  var kc = e.keyCode;
+  e.preventDefault();
 
-    if (kc === 37) Keys.left = false;
+  if (kc === 37) Keys.left = false;
     else if (kc === 38) Keys.up = false;
     else if (kc === 39) Keys.right = false;
     else if (kc === 40) Keys.down = false;
@@ -51,27 +54,28 @@ window.onkeyup = function(e) {
 var isDirty = false;
 
 function update() {
-    if (Keys.up) {
-        dy+=3;
-        isDirty = true;
-    }
-    else if (Keys.down) {
-        dy-=3;
-        isDirty = true;
-    }
+  if (Keys.up) {
+      dy+=3;
+      isDirty = true;
+  }
+  else if (Keys.down) {
+      dy-=3;
+      isDirty = true;
+  }
 
-    if (Keys.left) {
-        dx+=3;
-        isDirty = true;
-    }
-    else if (Keys.right) {
-        dx-=3;
-        isDirty = true;
-    }
+  if (Keys.left) {
+      dx+=3;
+      isDirty = true;
+  }
+  else if (Keys.right) {
+      dx-=3;
+      isDirty = true;
+  }
 
-    if (isDirty) render();
-    requestAnimationFrame(update);
+  if (isDirty) render();
+  requestAnimationFrame(update);
 }
+
 requestAnimationFrame(update);
 
 function render() {
