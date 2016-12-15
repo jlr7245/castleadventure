@@ -86,7 +86,7 @@ class Room {
     this.drawWalls();
     this.drawExit();
     ////this.player = new User(user, this.userPositionX, this.userPositionY);
-    ///this.drawUser(this.userPositionX, this.userPositionY, this.ctx);
+    this.drawUser(this.userPositionX, this.userPositionY, this.ctx);
   } /// end of constructor
   
   setEntryAndExit() {
