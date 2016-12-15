@@ -43,3 +43,7 @@ button::-moz-focus-inner {
 button:focus, input:focus {
   outline:none;
 }
+
+canvas {
+  background-color: #aaa;
+}
