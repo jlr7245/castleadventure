@@ -1,10 +1,4 @@
-class Canv {
-  constructor(canvas) {
-    this.canvas = canvas;
-    this.width = canvas.width;
-    
-  }
-}
+
 
 
 let user = {
@@ -42,13 +36,9 @@ class ExitPoint {
     this.fill = '#010101';
   }
   
-/*  draw(ctx) { 
+  draw(ctx) { 
     ctx.fillStyle = this.fill;
     ctx.fillRect(this.x, this.y, this.w, this.h);
-  }*/
-  
-  draw(arg) {
-    console.log(arg);
   }
 }
 
@@ -66,10 +56,11 @@ let castleCourtyard = {
 };
 
 class Room {
-  constructor(obj, canv) {
+  constructor(obj) {
     for (let fld in obj) { this[fld] = obj[fld]; } // looping through object passed
-    for (let field in canv) { this[field] = canv[field]; } // looping through the canvas????? HMM
+    this.entryAndExitArr = [];
     this.setEntryAndExit();
+    this.drawExit();
     this.drawWalls();
     this.drawUser(this.userPositionX, this.userPositionY);
   } /// end of constructor
@@ -77,9 +68,15 @@ class Room {
   setEntryAndExit() {
     for (let exit of this.entryAndExit) {
       let Rect = new ExitPoint(exit);
-      Rect.draw('ctx');
+      this.entryAndExitArr.push(Rect);
     }
     console.log('testing');
+  }
+  
+  drawExit() {
+    for (let exit of this.entryAndExitArr) {
+      exit.draw(this.ctx);
+    }
   }
   
   drawWalls() {
@@ -92,5 +89,28 @@ class Room {
   
 }
 
+class CanvasState {
+  constructor(arg, canvas) {
+    this.canvas = canvas;
+    this.width = canvas.width;
+    this.height = canvas.height;
+    this.ctx = canvas.getContext('2d');
+    for (let key in arg) { this[key] = arg[key]; }
 
+  }
+  //// stuff goes here
+}
 
+var canv;
+var test;
+var current;
+
+let init = function init() {
+  canv = document.getElementById('canvas');
+  current = new Room(castleCourtyard); ///// got a scope problem in here... tries to draw the exit point before there's a context.... i guess i have to create a canvas state first and then i can create a room with the canvas state??????
+  test = new CanvasState(current, canv);
+};
+
+window.onload = function() {
+  init();
+};
