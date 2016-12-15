@@ -10,7 +10,7 @@ let user = {
   
 };
 
-
+////////// initial items (will go in own file)
 const gate = {
   name: 'Gate',
   look: 'It looks very Strong.',
@@ -24,6 +24,27 @@ const courtyardWall = {
   look: `The writing on the wall says "${ user.name } WAS HERE - 1984"... looks like you've been here a while.`,
   fixedLocation: true,
 };
+
+
+////////// initial room styles (might go in own file?)
+
+let square = [ [0, 0, 770, 35], [0, 0, 35, 580] ];
+
+class Wall { //// hmm. for some reason this looks JUST like the exitpoint class. maybe I should combine that too.
+  constructor(arr) {
+    this.x = arr[0];
+    this.y = arr[1];
+    this.w = arr[2];
+    this.h = arr[3];
+    this.fill = '#cccccc';
+  }
+  
+  draw(ctx) { 
+    ctx.fillStyle = this.fill;
+    ctx.fillRect(this.x, this.y, this.w, this.h);
+  }
+  
+}
 
 /// 780 x 590 // 1280 x 800 // x 330, y 235, w 120, h 220
 
@@ -53,17 +74,17 @@ let castleCourtyard = {
   userPositionX: 460,
   userPositionY: 460,
   entryAndExit: [ [330, 0, 120, 5], [0, 235, 5, 120] ],
-  //wallStyle: square,
+  wallStyle: square,
 };
 
 class Room {
-  constructor(canv, obj) {
+  constructor(canv, room) {
     for (let key in canv) { this[key] = canv[key]; }
-    for (let fld in obj) { this[fld] = obj[fld]; } // looping through object passed
+    for (let attr in room) { this[attr] = room[attr]; } // looping through object passed
     this.entryAndExitArr = [];
     this.setEntryAndExit();
-    this.drawExit();
     this.drawWalls();
+    this.drawExit();
     this.drawUser(this.userPositionX, this.userPositionY, this.ctx);
   } /// end of constructor
   
@@ -75,14 +96,17 @@ class Room {
     console.log('testing');
   }
   
-  drawExit() {
+  drawExit() { /// probably could combine this with entry & exit?
     for (let exit of this.entryAndExitArr) {
       exit.draw(this.ctx);
     }
   }
   
   drawWalls() {
-    console.log('testing');
+    for (let wall of this.wallStyle) {
+      let drawIt = new Wall(wall);
+      drawIt.draw(this.ctx);
+    }
   }
   
   drawUser(x, y, ctx) {
@@ -107,10 +131,10 @@ var canv;
 var theRoom;
 var canvas;
 
-let init = function init(arg) {
+let init = function init(room) {
   canv = document.getElementById('canvas');
   canvas = new CanvasState(canv); 
-  theRoom = new Room(canvas, arg);
+  theRoom = new Room(canvas, room);
 };
 
 window.onload = function() {
