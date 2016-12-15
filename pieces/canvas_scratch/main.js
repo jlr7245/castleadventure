@@ -1,4 +1,4 @@
-const motionDif = 5;
+const motionDif = 10;
 
 let user = {
   name: 'Hello',
@@ -96,8 +96,37 @@ const stonewalls = {
 
 ////////// initial room styles (might go in own file?)
 
-let square = [ [1, 1, 778, 35], [1, 1, 35, 588], [745, 1, 35, 588], [1, 554, 778, 35]  ];
-let annexextended = [];
+const courtyard = [ [0, 0, 790, 35], [1, 1, 35, 588], [745, 1, 35, 588], [1, 554, 778, 35]  ];
+const annexextended = [
+  [290, 0, 35, 165], 
+  [450, 0, 35, 165], 
+  [0, 130, 320, 35], 
+  [450, 130, 320, 35],
+  [0, 130, 35, 320],
+  [745, 130, 35, 320],
+  [0, 415, 320, 35],
+  [450, 415, 320, 35],
+  [290, 415, 35, 165],
+  [450, 415, 35, 165]
+  ];
+const square = [
+  [290, 0, 35, 65],
+  [450, 0, 35, 65],
+  [30, 30, 290, 35],
+  [450, 30, 290, 35],
+  [30, 30, 35, 195],
+  [715, 30, 35, 195],
+  [0, 190, 65, 35],
+  [715, 190, 65, 35],
+  [0, 350, 65, 35],
+  [715, 350, 65, 35],
+  [30, 350, 35, 195],
+  [715, 350, 35, 195],
+  [30, 515, 295, 35],
+  [450, 515, 300, 35],
+  [290, 525, 35, 65],
+  [450, 525, 35, 65]
+  ];
 
 class Wall { //// hmm. for some reason this looks JUST like the exitpoint class. maybe I should combine that too.
   constructor(arr) {
@@ -124,9 +153,6 @@ class ExitPoint {
     this.w = arr[2];
     this.h = arr[3];
     this.fill = '#010101';
-    this.nextRoom = arr[4];
-    this.nextUserPositionX = arr[5];
-    this.nextUserPositionY = arr[6];
   }
   
   draw(ctx) { 
@@ -138,6 +164,8 @@ class ExitPoint {
 
 var welcomeHall = {
   roomName: 'Welcome Hall',
+  wallStyle: square,
+  entryAndExit: [[330, 1, 120, 35], [330, 550, 120, 40]],
 };
 
 var entranceRoom = {
@@ -146,7 +174,7 @@ var entranceRoom = {
   roomDescription: 'You are in the Entrance room. Exits are to the north and south.',
   lookableAttributes: [stonewalls],
   wallStyle: annexextended,
-  entryAndExit: [ [330, 1, 120, 35], [330, 580, 120, 35] ], //// these 350s should read 'theRoom.player.x' but...
+  entryAndExit: [ [330, 1, 120, 35], [330, 550, 120, 35] ], 
   connectingRooms: [welcomeHall, null, castleCourtyard, null]
 };
 
@@ -157,8 +185,8 @@ var castleCourtyard = {
   roomMonsters: [],
   roomItems: [],
   lookableAttributes: [gate, courtyardWall],
-  entryAndExit: [ [330, 1, 120, 35] ],
-  wallStyle: square,
+  entryAndExit: [ [330, 0, 120, 35] ],
+  wallStyle: courtyard,
   connectingRooms: [entranceRoom, null, null, null]
 };
 
@@ -202,7 +230,6 @@ class Room {
     //console.log(e.char);
   }
 
-  
 }
 
 class CanvasState {
