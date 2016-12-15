@@ -72,3 +72,4 @@
 ## Links and Resources
 - [jCanvas](http://projects.calebevans.me/jcanvas/)
 - [Passing object as a parameter](http://stackoverflow.com/questions/4743030/passing-object-as-parameter-to-constructor-function-and-copy-its-properties-to-t)
+- [JSFiddle on canvas key motion](http://jsfiddle.net/epistemex/r63Nh/)
