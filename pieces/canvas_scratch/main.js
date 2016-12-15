@@ -73,7 +73,7 @@ let castleCourtyard = {
   lookableAttributes: [gate, courtyardWall],
   userPositionX: 460,
   userPositionY: 460,
-  entryAndExit: [ [330, 0, 120, 5], [0, 235, 5, 120] ],
+  entryAndExit: [ [330, 0, 120, 35], [0, 235, 35, 120] ],
   wallStyle: square,
 };
 
@@ -85,7 +85,8 @@ class Room {
     this.setEntryAndExit();
     this.drawWalls();
     this.drawExit();
-    this.drawUser(this.userPositionX, this.userPositionY, this.ctx);
+    ////this.player = new User(user, this.userPositionX, this.userPositionY);
+    ///this.drawUser(this.userPositionX, this.userPositionY, this.ctx);
   } /// end of constructor
   
   setEntryAndExit() {

@@ -3,7 +3,7 @@
 body {
   font-size: 16px;
   margin: 0;
-  background-color: #eee;
+  background-color: black;
   text-align: center;
 }
 
@@ -45,5 +45,8 @@ button:focus, input:focus {
 }
 
 canvas {
-  background-color: #aaa;
+  background-color: black;
+  border: 3px solid #aaa;
+  box-sizing: border-box;
+  padding: 20px;
 }
