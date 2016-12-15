@@ -48,6 +48,9 @@ class User {
         if (this.collision !== 1) this.x += motionDif;
         this.collision = 0;
       }
+    if (this.y - 5 <= 0) {
+      init(theRoom.connectingRooms[0], this.x, 550);
+    }
     this.clear(this.prevX, this.prevY);
     this.draw(this.x, this.y, this.ctx);
   }
@@ -85,10 +88,16 @@ const courtyardWall = {
   fixedLocation: true,
 };
 
+const stonewalls = {
+  name: 'Wall',
+  look: 'The WALLS are made of Gray Stone.',
+}
+
 
 ////////// initial room styles (might go in own file?)
 
-let square = [ [0, 0, 770, 35], [0, 0, 35, 580] ];
+let square = [ [1, 1, 778, 35], [1, 1, 35, 588], [745, 1, 35, 588], [1, 554, 778, 35]  ];
+let annexextended = [];
 
 class Wall { //// hmm. for some reason this looks JUST like the exitpoint class. maybe I should combine that too.
   constructor(arr) {
@@ -115,6 +124,9 @@ class ExitPoint {
     this.w = arr[2];
     this.h = arr[3];
     this.fill = '#010101';
+    this.nextRoom = arr[4];
+    this.nextUserPositionX = arr[5];
+    this.nextUserPositionY = arr[6];
   }
   
   draw(ctx) { 
@@ -124,26 +136,43 @@ class ExitPoint {
 }
 
 
-let castleCourtyard = {
+var welcomeHall = {
+  roomName: 'Welcome Hall',
+};
+
+var entranceRoom = {
+  roomName: 'Entrance Room',
+  roomOrder: 2,
+  roomDescription: 'You are in the Entrance room. Exits are to the north and south.',
+  lookableAttributes: [stonewalls],
+  wallStyle: annexextended,
+  entryAndExit: [ [330, 1, 120, 35], [330, 580, 120, 35] ], //// these 350s should read 'theRoom.player.x' but...
+  connectingRooms: [welcomeHall, null, castleCourtyard, null]
+};
+
+var castleCourtyard = {
   roomName: 'Castle Courtyard',
   roomOrder: 1,
   roomDescription: 'You are in the Castle Courtyard. To the north is a large Doorway. To the south is a large Gate.',
   roomMonsters: [],
   roomItems: [],
   lookableAttributes: [gate, courtyardWall],
-  userPositionX: 100,
-  userPositionY: 100,
-  entryAndExit: [ [330, 0, 120, 35], [0, 235, 35, 120] ],
+  entryAndExit: [ [330, 1, 120, 35] ],
   wallStyle: square,
+  connectingRooms: [entranceRoom, null, null, null]
 };
 
+
+
 class Room {
-  constructor(canv, room) {
+  constructor(canv, room, x, y) {
     for (let key in canv) { this[key] = canv[key]; }
     for (let attr in room) { this[attr] = room[attr]; } // looping through object passed
+    this.userPositionX = x;
+    this.userPositionY = y;
     this.entryAndExitArr = [];
-    this.setEntryAndExit();
     this.drawWalls();
+    this.setEntryAndExit();
     this.drawExit();
     this.player = new User(user, this.userPositionX, this.userPositionY, this.ctx);
   } /// end of constructor
@@ -182,9 +211,15 @@ class CanvasState {
     this.width = canvas.width;
     this.height = canvas.height;
     this.ctx = canvas.getContext('2d');
-
+    this.clear = this.clear.bind(this);
+    this.clear();
   }
   //// stuff goes here
+  
+  clear() {
+    this.ctx.fillStyle = 'black';
+    this.ctx.fillRect(0,0,this.width,this.height);
+  }
 }
 
 var canv;
@@ -192,14 +227,14 @@ var theRoom;
 var canvas;
 
 
-let init = function init(room) {
+let init = function init(room, x, y) {
   canv = document.getElementById('canvas');
   canvas = new CanvasState(canv); 
-  theRoom = new Room(canvas, room);
+  theRoom = new Room(canvas, room, x, y);
   window.addEventListener('keydown', theRoom.player.move);
   window.addEventListener('keyup', theRoom.typeInput);
 };
 
 window.onload = function() {
-  init(castleCourtyard);
+  init(castleCourtyard, 350, 100);
 };
