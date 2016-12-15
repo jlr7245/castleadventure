@@ -16,9 +16,11 @@ class User {
     this.prevX;
     this.prevX;
     this.ctx = ctx;
+    this.collision = 0;
     this.draw(this.initialX, this.initialY, this.ctx);
     this.move = this.move.bind(this);
     this.clear = this.clear.bind(this);
+    this.checkCollision = this.checkCollision.bind(this);
   }
 
   draw(x, y, ctx) {
@@ -29,16 +31,41 @@ class User {
   move(e) {
     this.prevX = this.x;
     this.prevY = this.y;
-    if (e.key === 'ArrowUp') this.y -= motionDif;
-      else if (e.key === 'ArrowDown') this.y += motionDif;
-      else if (e.key === 'ArrowLeft') this.x -= motionDif;
-      else if (e.key === 'ArrowRight') this.x += motionDif;
+      if (e.key === 'ArrowUp') {
+        this.checkCollision(this.x, this.y - 5);
+        if (this.collision !== 1) this.y -= motionDif;
+        this.collision = 0;
+      } else if (e.key === 'ArrowDown') {
+        this.checkCollision(this.x, this.y + 5);
+        if (this.collision !== 1) this.y += motionDif;
+        this.collision = 0;
+      } else if (e.key === 'ArrowLeft') {
+        this.checkCollision(this.x - 5, this.y);
+        if (this.collision !== 1) this.x -= motionDif; 
+        this.collision = 0;
+      } else if (e.key === 'ArrowRight') {
+        this.checkCollision(this.x + 5, this.y);
+        if (this.collision !== 1) this.x += motionDif;
+        this.collision = 0;
+      }
     this.clear(this.prevX, this.prevY);
     this.draw(this.x, this.y, this.ctx);
   }
   
   clear(x, y) {
     this.ctx.clearRect(x, y, 20, 20);
+  }
+  
+  checkCollision(x, y) {
+    var imgd = this.ctx.getImageData(x, y, 30, 30);
+    var pix = imgd.data;
+    for (let i = 0; i < pix.length; i++) {
+      if (pix[i] === 204) {
+        this.collision = 1;
+        console.log('bonk');
+        break;
+      }
+    }
   }
   
 }
@@ -104,8 +131,8 @@ let castleCourtyard = {
   roomMonsters: [],
   roomItems: [],
   lookableAttributes: [gate, courtyardWall],
-  userPositionX: 460,
-  userPositionY: 460,
+  userPositionX: 100,
+  userPositionY: 100,
   entryAndExit: [ [330, 0, 120, 35], [0, 235, 35, 120] ],
   wallStyle: square,
 };
