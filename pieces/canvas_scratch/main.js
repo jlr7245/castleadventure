@@ -1,13 +1,9 @@
-
-
+const motionDif = 5;
 
 let user = {
   name: 'Hello',
   items: [],
   fightPoints: 30,
-  
-  //// all my motion stuff probably has to happen in here...
-  
 };
 
 class User {
@@ -17,19 +13,33 @@ class User {
     this.initialY = y;
     this.x = x;
     this.y = y;
+    this.prevX;
+    this.prevX;
     this.ctx = ctx;
     this.draw(this.initialX, this.initialY, this.ctx);
+    this.move = this.move.bind(this);
+    this.clear = this.clear.bind(this);
   }
-  
+
   draw(x, y, ctx) {
     ctx.fillStyle = 'white';
     ctx.fillRect(x,y,20,20);
   }
   
   move(e) {
-    
+    this.prevX = this.x;
+    this.prevY = this.y;
+    if (e.key === 'ArrowUp') this.y -= motionDif;
+      else if (e.key === 'ArrowDown') this.y += motionDif;
+      else if (e.key === 'ArrowLeft') this.x -= motionDif;
+      else if (e.key === 'ArrowRight') this.x += motionDif;
+    this.clear(this.prevX, this.prevY);
+    this.draw(this.x, this.y, this.ctx);
   }
   
+  clear(x, y) {
+    this.ctx.clearRect(x, y, 20, 20);
+  }
   
 }
 
@@ -132,6 +142,9 @@ class Room {
     }
   }
   
+  typeInput(e) {
+    //console.log(e.char);
+  }
 
   
 }
@@ -151,11 +164,13 @@ var canv;
 var theRoom;
 var canvas;
 
+
 let init = function init(room) {
   canv = document.getElementById('canvas');
   canvas = new CanvasState(canv); 
   theRoom = new Room(canvas, room);
-  window.addEventListener('keydown', theRoom.player.move(e));
+  window.addEventListener('keydown', theRoom.player.move);
+  window.addEventListener('keyup', theRoom.typeInput);
 };
 
 window.onload = function() {
