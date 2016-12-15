@@ -10,6 +10,29 @@ let user = {
   
 };
 
+class User {
+  constructor(user, x, y, ctx) {
+    for (let metric in user) { this[metric] = user[metric]; }
+    this.initialX = x;
+    this.initialY = y;
+    this.x = x;
+    this.y = y;
+    this.ctx = ctx;
+    this.draw(this.initialX, this.initialY, this.ctx);
+  }
+  
+  draw(x, y, ctx) {
+    ctx.fillStyle = 'white';
+    ctx.fillRect(x,y,20,20);
+  }
+  
+  move(e) {
+    
+  }
+  
+  
+}
+
 ////////// initial items (will go in own file)
 const gate = {
   name: 'Gate',
@@ -85,8 +108,7 @@ class Room {
     this.setEntryAndExit();
     this.drawWalls();
     this.drawExit();
-    ////this.player = new User(user, this.userPositionX, this.userPositionY);
-    this.drawUser(this.userPositionX, this.userPositionY, this.ctx);
+    this.player = new User(user, this.userPositionX, this.userPositionY, this.ctx);
   } /// end of constructor
   
   setEntryAndExit() {
@@ -97,7 +119,7 @@ class Room {
     console.log('testing');
   }
   
-  drawExit() { /// probably could combine this with entry & exit?
+  drawExit() { /// combine with set
     for (let exit of this.entryAndExitArr) {
       exit.draw(this.ctx);
     }
@@ -110,10 +132,7 @@ class Room {
     }
   }
   
-  drawUser(x, y, ctx) {
-    ctx.fillStyle = 'white';
-    ctx.fillRect(x,y,20,20);
-  }
+
   
 }
 
@@ -136,6 +155,7 @@ let init = function init(room) {
   canv = document.getElementById('canvas');
   canvas = new CanvasState(canv); 
   theRoom = new Room(canvas, room);
+  window.addEventListener('keydown', theRoom.player.move(e));
 };
 
 window.onload = function() {
