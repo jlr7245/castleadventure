@@ -1,6 +1,8 @@
+/* jshint maxerr: 2000 */
+
 const motionDif = 10;
 
-let user = {
+const user = {
   name: 'Hello',
   items: [],
   fightPoints: 30,
@@ -50,20 +52,17 @@ class User {
         if (this.collision !== 1) this.x += motionDif;
         this.collision = 0;
       }
+    this.clear(this.prevX, this.prevY);
+    this.draw(this.x, this.y, this.ctx);
     if (this.y - 5 <= 0) { //// top 
-    console.log(theRoom.connectingRooms);
       init(theRoom.connectingRooms[0], this.x, 550);
     } else if (this.x + 5 >= 780) { //// right
       init(theRoom.connectingRooms[1], 20, this.y);
     } else if (this.y + 5 >= 590) { //// bottom
-      console.log(theRoom.connectingRooms[2]);
       init(theRoom.connectingRooms[2], this.x, 20);
     } else if (this.x - 5 <= 0) {  ///// left
-    console.log(theRoom.connectingRooms[3]);
       init(theRoom.connectingRooms[3], 750, this.y);
     }
-    this.clear(this.prevX, this.prevY);
-    this.draw(this.x, this.y, this.ctx);
   }
   
   clear(x, y) {
@@ -86,7 +85,7 @@ class User {
 
 ////////// initial items (will go in own file)
 const gate = {
-  name: 'Gate',
+  name: 'gate',
   look: 'It looks very Strong.',
   open: ['You don\'t have a key!'],
   collide: 'The gate is locked.',
@@ -94,20 +93,26 @@ const gate = {
 };
 
 const courtyardWall = {
-  name: 'Wall',
+  name: 'wall',
   look: `The writing on the wall says "${ user.name } WAS HERE - 1984"... looks like you've been here a while.`,
   fixedLocation: true,
 };
 
 const stonewalls = {
-  name: 'Wall',
+  name: 'wall',
   look: 'The WALLS are made of Gray Stone.',
 };
 
 const throne = {
-  name: 'Throne',
+  name: 'throne',
   look: 'The throne is made of stone.',
   get: 'THRONES are too heavy!',
+};
+
+const kitchentable = {
+  name: 'table',
+  look: 'It\'s made of Stone.',
+  get: 'TABLES are too heavy!',
 };
 
 
@@ -149,8 +154,38 @@ const annex = [
 ];
 
 const throneRm = [
-  [30, 515, 295, 35], [450, 515, 300, 35], [290, 525, 35, 65], [450, 525, 35, 65] //// bottom
+  [30, 515, 295, 35], [450, 515, 300, 35], [290, 525, 35, 65], [450, 525, 35, 65], //// south
+  [30, 90, 715, 35], /// north
+  [30, 90, 35, 50], [0, 120, 65, 35], [0, 210, 65, 35], [30, 210, 35, 335], //// west
+  [715, 90, 35, 50], [715, 120, 65, 35], [715, 210, 65, 35], [715, 210, 35, 335], //// east
+];
+
+const smallEast = [
+  [30, 0, 680, 35], /// north
+  [30, 0, 35, 300], /// west
+  [30, 300, 680, 35], /// south
+  [680, 0, 35, 155], [680, 120, 95, 35], [680, 210, 95, 35], [680, 210, 35, 125] /// east
+];
+
+const smallWest = [
+  [90, 0, 590, 35], // north
+  [680, 0, 35, 300], // east
+  [90, 300, 625, 35], // south
+  [90, 0, 35, 155], [0, 120, 95, 35], [0, 210, 95, 35], [90, 210, 35, 125], /// west
+];
+
+const square2NorthEastSouth = [
+  [715, 350, 35, 195], [715, 30, 35, 195], [750, 350, 35, 35], [750, 190, 35, 35], /// east
+  [30, 515, 295, 35], [450, 515, 300, 35], [290, 525, 35, 65], [450, 525, 35, 65], /// south
+  [30, 30, 35, 520], /// west
+  [150, 0, 35, 65], [250, 0, 35, 65], [30, 30, 130, 35], [250, 30, 220, 35], [460, 0, 35, 65], [560, 0, 35, 65], [560, 30, 160, 35]/// north
+];
+
+const kitchenwalls = [
+  [150, 525, 35, 65], [250, 525, 35, 65], [90, 525, 90, 35], [250, 525, 220, 35], [460, 525, 35, 65], [560, 525, 35, 65], [560, 525, 160, 35], /// south
+  [90, 30, 35, 515] /// west
   ];
+  
 
 class Wall { 
   constructor(arr) {
@@ -217,7 +252,7 @@ const eastBallroom = {
 
 const westDining = {
   roomName: 'West Dining',
-  wallStyle: square, //// actually this should be square2NorthEastSouth
+  wallStyle: square2NorthEastSouth, //// actually this should be square2NorthEastSouth
   /*connectingRooms: [undefined, centralHall, westBallroom, undefined],*/
   roomDescription: 'You are in the West Dining room. There are 2 door ways to the north, & arch ways to the east & south.',
 };
@@ -242,15 +277,26 @@ const throneRoom = {
   roomDescription: 'You are in the Throne Room. There is a Large Throne at one end of the room.',
   roomMonsters: [],
   roomItems: [],
-  additionalAttributes: [throne],
+  addlAttr: [throne],
 };
 
 const kingsDrRoom = {
-  
+  roomName: 'King\'s Dressing Room',
+  wallStyle: smallEast,
+  roomDescription: 'You are In the Kings Dressing room. It was Once Filled with clothes. There is a Staircase in one corner.'
 };
 
 const queensDrRoom = {
-  
+  roomName: 'Queen\'s Dressing Room',
+  wallStyle: smallWest,
+  roomDescription: 'You are in the Queen\'s Dressing room. It was once filled with clothes. There is a Staircase in one corner.',
+};
+
+const kitchen = {
+  name: 'Kitchen',
+  wallStyle: kitchenwalls,
+  roomDescription: 'You are in The Kitchen. In the Center is a large stone table.',
+  addlAttr: [kitchentable],
 };
 
 /// setting connecting rooms
@@ -260,10 +306,13 @@ entranceRoom.connectingRooms = [welcomeHall, undefined, castleCourtyard, undefin
 castleCourtyard.connectingRooms = [entranceRoom, undefined, undefined, undefined];
 westBallroom.connectingRooms = [westDining, welcomeHall, undefined, undefined];
 eastBallroom.connectingRooms = [eastDining, undefined, undefined, welcomeHall];
-westDining.connectingRooms = [undefined, centralHall, westBallroom, undefined];
+westDining.connectingRooms = [kitchen, centralHall, westBallroom, undefined];
 eastDining.connectingRooms = [undefined, undefined, eastBallroom, centralHall];
 anteRoom.connectingRooms = [throneRoom, undefined, centralHall, undefined];
-throneRoom.connectingRooms = [undefined, kingsDrRoom, anteRoom, queensDrRoom];
+throneRoom.connectingRooms = [undefined, queensDrRoom, anteRoom, kingsDrRoom];
+kingsDrRoom.connectingRooms = [undefined, throneRoom, undefined, undefined];
+queensDrRoom.connectingRooms = [undefined, undefined, undefined, throneRoom];
+kitchen.connectingRooms = [undefined, undefined, westDining, undefined];
 
 
 class Room {
@@ -277,7 +326,6 @@ class Room {
   
   
   drawWalls() {
-    console.log(this.wallStyle);
     for (let wall of this.wallStyle) {
       let drawIt = new Wall(wall);
       drawIt.draw(this.ctx);
@@ -328,7 +376,7 @@ function init(room, x, y) {
 }
 
 window.onload = function() {
-  init(throneRoom, 350, 100);
+  init(kitchen, 350, 100);
   window.addEventListener('keyup', e => theRoom.typeInput(e));
   window.addEventListener('keydown', e => player.move(e));
 };
