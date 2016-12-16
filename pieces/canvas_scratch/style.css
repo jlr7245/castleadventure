@@ -1,12 +1,23 @@
 /* Setup */
 
+@font-face {
+    font-family: 'terminal';
+    src: url('fonts/pxplus_ibm_vga8-2x-webfont.woff2') format('woff2'),
+         url('fonts/pxplus_ibm_vga8-2x-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
 body {
   font-size: 16px;
   margin: 20px;
   background-color: black;
   /*text-align: center;*/
   color: white;
-  font-family: 'roboto mono', monospace;
+  font-family: 'terminal', monospace;
 }
 
 .container {

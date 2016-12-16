@@ -38,7 +38,10 @@ class User {
     this.prevY = this.y;
       if (e.key === 'ArrowUp') {
         this.checkCollision(this.x, this.y - 6);
-        if (this.collision !== 1) this.y -= motionDif;
+        if (this.collision === 0) this.y -= motionDif;
+          else if (this.collision == 2) {
+            //// something about picking up an object
+          }
         this.collision = 0;
       } else if (e.key === 'ArrowDown') {
         this.checkCollision(this.x, this.y + 6);
@@ -78,6 +81,10 @@ class User {
         this.collision = 1;
         console.log('bonk');
         break;
+      } else if (pix[i] === 187) {
+        this.collision = 2;
+        console.log('oooh, theres something here');
+        break;
       }
     }
   }
@@ -114,6 +121,13 @@ const kitchentable = {
   name: 'table',
   look: 'It\'s made of Stone.',
   get: 'TABLES are too heavy!',
+};
+
+
+const necklace = {
+  x: 300,
+  y: 300,
+  str: '§',
 };
 
 
@@ -278,7 +292,7 @@ const castleCourtyard = {
   roomOrder: 1,
   roomDescription: 'You are in the Castle Courtyard. To the north is a large Doorway. To the south is a large Gate.',
   roomMonsters: [],
-  roomItems: [],
+  roomItems: [necklace],
   lookableAttributes: [gate, courtyardWall],
   wallStyle: courtyard,
 };
@@ -405,6 +419,7 @@ class Room {
     for (let attr in room) { this[attr] = room[attr]; } // looping through object passed
     this.drawWalls();
     this.player = player;
+    this.drawItems();
     this.writeDescrip();
   } /// end of constructor
   
@@ -413,6 +428,16 @@ class Room {
     for (let wall of this.wallStyle) {
       let drawIt = new Wall(wall);
       drawIt.draw(this.ctx);
+    }
+  }
+  
+  drawItems() {
+    if (this.roomItems !== undefined) {
+      for (let item of this.roomItems) {
+        this.ctx.font = "30px terminal";
+        this.ctx.fillStyle = "#bbbbbb";
+        this.ctx.fillText(item.str, item.x, item.y);
+      }
     }
   }
   
@@ -460,7 +485,7 @@ function init(room, x, y) {
 }
 
 window.onload = function() {
-  init(gardenTop, 450, 500);
+  init(castleCourtyard, 450, 500);
   window.addEventListener('keyup', e => theRoom.typeInput(e));
   window.addEventListener('keydown', e => player.move(e));
 };
