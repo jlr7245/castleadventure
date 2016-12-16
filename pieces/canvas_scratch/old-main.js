@@ -59,7 +59,6 @@ class User {
       console.log(theRoom.connectingRooms[2]);
       init(theRoom.connectingRooms[2], this.x, 20);
     } else if (this.x - 5 <= 0) {  ///// left
-    console.log(theRoom.connectingRooms[3]);
       init(theRoom.connectingRooms[3], 750, this.y);
     }
     this.clear(this.prevX, this.prevY);
@@ -146,88 +145,88 @@ class Wall {
 
 /// 780 x 590 // 1280 x 800 // x 330, y 235, w 120, h 220
 
+/*var centralHall = {};
+var welcomeHall = {};
+var entranceRoom = {};
+var castleCourtyard = {};
+var westBallroom = {};
+var eastBallroom = {};
+var westDining = {};
+var eastDining = {};
+var anteRoom = {};*/
 
-const centralHall = {
-  roomName: 'Central Hall',
-  wallStyle: square,
-/*  connectingRooms: [anteRoom, eastDining, welcomeHall, westDining],
-*/  roomDescription: 'You are in The Central Hall. Exits are in all directions. There is a large spiral staircase in the middle.',
+let roomsObj = {
+  centralHall: {
+    roomName: 'Central Hall',
+    wallStyle: square,
+    connectingRooms: [this.anteRoom, this.eastDining, this.welcomeHall, this.westDining],
+    roomDescription: 'You are in The Central Hall. Exits are in all directions. There is a large spiral staircase in the middle.',
+  },
+  
+  welcomeHall: {
+    roomName: 'Welcome Hall',
+    wallStyle: square,
+    connectingRooms: [this.centralHall, this.eastBallroom, this.entranceRoom, this.westBallroom],
+    roomDescription: 'You are in The Welcome Hall. This room was used to welcome guests. There are large archways in all four walls.',
+  },
+  
+  entranceRoom: {
+    roomName: 'Entrance Room',
+    roomOrder: 2,
+    roomDescription: 'You are in the Entrance room. Exits are to the north and south.',
+    lookableAttributes: [stonewalls],
+    wallStyle: annexextended,
+    connectingRooms: [this.welcomeHall, undefined, this.castleCourtyard, undefined]
+  },
+  
+  castleCourtyard: {
+    roomName: 'Castle Courtyard',
+    roomOrder: 1,
+    roomDescription: 'You are in the Castle Courtyard. To the north is a large Doorway. To the south is a large Gate.',
+    roomMonsters: [],
+    roomItems: [],
+    lookableAttributes: [gate, courtyardWall],
+    wallStyle: courtyard,
+    connectingRooms: [this.entranceRoom, undefined, undefined, undefined]
+  },
+  
+  westBallroom: {
+    roomName: 'West Ballroom',
+    wallStyle: square, /// should be squareNorthAndEast
+    staircaseExit: [],
+    hasMonster: true,
+    roomDescription: 'You are in The West Ballroom. There are arch ways to the north & east; a spiral staircase in one corner.',
+    connectingRooms: [this.westDining, this.welcomeHall, undefined, undefined],
+  },
+  
+  eastBallroom: {
+    roomName: 'East Ballroom',
+    wallStyle: square, /// should be squareNorthAndWest
+    connectingRooms: [this.eastDining, undefined, undefined, this.welcomeHall],
+    roomDescription: 'You are in The East Ballroom. There are arch ways to the north & west; a spiral staircase in one corner.',
+  },
+  
+  westDining: {
+    roomName: 'West Dining',
+    wallStyle: square, //// actually this should be square2NorthEastSouth
+    connectingRooms: [undefined, this.centralHall, this.westBallroom, undefined],
+    roomDescription: 'You are in the West Dining room. There are 2 door ways to the north, & arch ways to the east & south.',
+  },
+  
+  eastDining: {
+    roomName: 'eastDining',
+    wallStyle: square, //// actually should be squareLargeEast
+    connectingRooms: [undefined, undefined, this.eastBallroom, this.centralHall],
+    roomDescription: 'You are in the East Dining room. The large opening to the east leads to the garden patio.',
+  },
+  
+  anteRoom: {
+    roomName: 'Ante Room',
+    wallStyle: annexextended, /// should be annex, annexextended is too wide
+    roomDescription: 'You are in the Ante Room. Here People waited for an audience with the King. It was once lined with benches.',
+    connectingRooms: [undefined, undefined, this.centralHall, undefined],
+  },
 };
-
-const welcomeHall = {
-  roomName: 'Welcome Hall',
-  wallStyle: square,
-  /*connectingRooms: [centralHall, eastBallroom, entranceRoom, westBallroom],*/
-  roomDescription: 'You are in The Welcome Hall. This room was used to welcome guests. There are large archways in all four walls.',
-};
-
-const entranceRoom = {
-  roomName: 'Entrance Room',
-  roomOrder: 2,
-  roomDescription: 'You are in the Entrance room. Exits are to the north and south.',
-  lookableAttributes: [stonewalls],
-  wallStyle: annexextended,
-  /*connectingRooms: [welcomeHall, undefined, castleCourtyard, undefined]*/
-};
-
-const castleCourtyard = {
-  roomName: 'Castle Courtyard',
-  roomOrder: 1,
-  roomDescription: 'You are in the Castle Courtyard. To the north is a large Doorway. To the south is a large Gate.',
-  roomMonsters: [],
-  roomItems: [],
-  lookableAttributes: [gate, courtyardWall],
-  wallStyle: courtyard,
-  /*connectingRooms: [entranceRoom, undefined, undefined, undefined]*/
-};
-
-const westBallroom = {
-  roomName: 'West Ballroom',
-  wallStyle: square, /// should be squareNorthAndEast
-  staircaseExit: [],
-  hasMonster: true,
-  roomDescription: 'You are in The West Ballroom. There are arch ways to the north & east; a spiral staircase in one corner.',
-  /*connectingRooms: [westDining, welcomeHall, undefined, undefined],*/
-};
-
-const eastBallroom = {
-  roomName: 'East Ballroom',
-  wallStyle: square, /// should be squareNorthAndWest
-  /*connectingRooms: [eastDining, undefined, undefined, welcomeHall],*/
-  roomDescription: 'You are in The East Ballroom. There are arch ways to the north & west; a spiral staircase in one corner.',
-};
-
-const westDining = {
-  roomName: 'West Dining',
-  wallStyle: square, //// actually this should be square2NorthEastSouth
-  /*connectingRooms: [undefined, centralHall, westBallroom, undefined],*/
-  roomDescription: 'You are in the West Dining room. There are 2 door ways to the north, & arch ways to the east & south.',
-};
-
-const eastDining = {
-  roomName: 'eastDining',
-  wallStyle: square, //// actually should be squareLargeEast
-  /*connectingRooms: [undefined, undefined, eastBallroom, centralHall],*/
-  roomDescription: 'You are in the East Dining room. The large opening to the east leads to the garden patio.',
-};
-
-const anteRoom = {
-  roomName: 'Ante Room',
-  wallStyle: annexextended, /// should be annex, annexextended is too wide
-  roomDescription: 'You are in the Ante Room. Here People waited for an audience with the King. It was once lined with benches.',
-  /*connectingRooms: [undefined, undefined, centralHall, undefined],*/
-};
-
-/// setting connecting rooms
-centralHall.connectingRooms = [anteRoom, eastDining, welcomeHall, westDining];
-welcomeHall.connectingRooms = [centralHall, eastBallroom, entranceRoom, westBallroom];
-entranceRoom.connectingRooms = [welcomeHall, undefined, castleCourtyard, undefined];
-castleCourtyard.connectingRooms = [entranceRoom, undefined, undefined, undefined];
-westBallroom.connectingRooms = [westDining, welcomeHall, undefined, undefined];
-eastBallroom.connectingRooms = [eastDining, undefined, undefined, welcomeHall];
-westDining.connectingRooms = [undefined, centralHall, westBallroom, undefined];
-eastDining.connectingRooms = [undefined, undefined, eastBallroom, centralHall];
-anteRoom.connectingRooms = [undefined, undefined, centralHall, undefined];
 
 
 class Room {
@@ -292,7 +291,7 @@ function init(room, x, y) {
 }
 
 window.onload = function() {
-  init(castleCourtyard, 350, 100);
+  init(roomsObj.castleCourtyard, 350, 100);
   window.addEventListener('keyup', e => theRoom.typeInput(e));
   window.addEventListener('keydown', e => player.move(e));
 };
