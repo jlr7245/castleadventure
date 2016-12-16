@@ -54,12 +54,12 @@ class User {
     console.log(theRoom.connectingRooms);
       init(theRoom.connectingRooms[0], this.x, 550);
     } else if (this.x + 5 >= 780) { //// right
-      init(theRoom.connectingRooms[1], this.y, 20);
+      init(theRoom.connectingRooms[1], 20, this.y);
     } else if (this.y + 5 >= 590) { //// bottom
       console.log(theRoom.connectingRooms[2]);
       init(theRoom.connectingRooms[2], this.x, 20);
     } else if (this.x - 5 <= 0) {  ///// left
-      init(theRoom.connectingRooms[3], this.x, 750);
+      init(theRoom.connectingRooms[3], 750, this.y);
     }
     this.clear(this.prevX, this.prevY);
     this.draw(this.x, this.y, this.ctx);
