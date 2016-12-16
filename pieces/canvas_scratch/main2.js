@@ -6,8 +6,6 @@ let user = {
   fightPoints: 30,
 };
 
-
-
 class User {
   constructor(user, x, y, ctx) {
     for (let metric in user) { this[metric] = user[metric]; }
@@ -20,9 +18,9 @@ class User {
     this.ctx = ctx;
     this.collision = 0;
     this.draw(this.initialX, this.initialY, this.ctx);
-/*    this.move = this.move.bind(this);
+    this.move = this.move.bind(this);
     this.clear = this.clear.bind(this);
-    this.checkCollision = this.checkCollision.bind(this);*/
+    this.checkCollision = this.checkCollision.bind(this);
   }
 
   draw(x, y, ctx) {
@@ -53,12 +51,6 @@ class User {
     if (this.y - 5 <= 0) {
       // init(theRoom.connectingRooms[0], this.x, 550);
       init(theRoom.connectingRooms[0], this.x, 550);
-    } else if (this.x + 5 >= 780) {
-      init(theRoom.connectingRooms[1], this.y, 20);
-    } else if (this.y + 5 >= 590) {
-      init(theRoom.connectingRooms[2], this.x, 20);
-    } else if (this.x - 5 <= 0) {
-      init(theRoom.connectingRooms[3], this.x, 750);
     }
     this.clear(this.prevX, this.prevY);
     this.draw(this.x, this.y, this.ctx);
@@ -146,7 +138,6 @@ class Wall {
 var welcomeHall = {
   roomName: 'Welcome Hall',
   wallStyle: square,
-  connectingRooms: [null, null, welcomeHall, null],
 };
 
 var entranceRoom = {
@@ -222,15 +213,15 @@ var canvas;
 var player;
 
 
-function init(room, x, y) {
+let init = function init(room, x, y) {
   canv = document.getElementById('canvas');
-  canvas = new CanvasState(canv);
-  player = new User(user, x, y, canvas.ctx);
+  canvas = new CanvasState(canv); 
+  player = new User(user, x, y, canvas.ctx); //// it's remembering the last player I set
   theRoom = new Room(canvas, room, player);
-}
+  window.addEventListener('keydown', theRoom.player.move);
+  window.addEventListener('keyup', theRoom.typeInput);
+};
 
 window.onload = function() {
   init(castleCourtyard, 350, 100);
-  window.addEventListener('keyup', e => theRoom.typeInput(e));
-  window.addEventListener('keydown', e => player.move(e));
 };
