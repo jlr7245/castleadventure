@@ -40,20 +40,33 @@ class User {
         this.checkCollision(this.x, this.y - 6);
         if (this.collision === 0) this.y -= motionDif;
           else if (this.collision == 2) {
-            //// something about picking up an object
+            user.inventory.push(theRoom.roomItems[0]);
+            this.ctx.clearRect((this.x),(this.y-25),100,100);
           }
         this.collision = 0;
       } else if (e.key === 'ArrowDown') {
         this.checkCollision(this.x, this.y + 6);
-        if (this.collision !== 1) this.y += motionDif;
+        if (this.collision === 0) this.y += motionDif;
+          else if (this.collision == 2) {
+            user.inventory.push(theRoom.roomItems[0]);
+            this.ctx.clearRect((this.x),(this.y+25),100,100);
+          }
         this.collision = 0;
       } else if (e.key === 'ArrowLeft') {
         this.checkCollision(this.x - 6, this.y);
-        if (this.collision !== 1) this.x -= motionDif; 
+        if (this.collision === 0) this.x -= motionDif; 
+          else if (this.collision == 2) {
+            user.inventory.push(theRoom.roomItems[0]);
+            this.ctx.clearRect((this.x-25),(this.y),100,100);
+          }
         this.collision = 0;
       } else if (e.key === 'ArrowRight') {
         this.checkCollision(this.x + 6, this.y);
-        if (this.collision !== 1) this.x += motionDif;
+        if (this.collision === 0) this.x += motionDif;
+           else if (this.collision == 2) {
+            user.inventory.push(theRoom.roomItems[0]);
+            this.ctx.clearRect((this.x+25),(this.y),100,100);
+          }
         this.collision = 0;
       }
     this.clear(this.prevX, this.prevY);
@@ -434,7 +447,7 @@ class Room {
   drawItems() {
     if (this.roomItems !== undefined) {
       for (let item of this.roomItems) {
-        this.ctx.font = "30px terminal";
+        this.ctx.font = "20px terminal";
         this.ctx.fillStyle = "#bbbbbb";
         this.ctx.fillText(item.str, item.x, item.y);
       }
