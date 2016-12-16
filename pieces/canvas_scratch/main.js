@@ -4,8 +4,9 @@ const motionDif = 10;
 
 const user = {
   name: 'Hello',
-  items: [],
+  inventory: [],
   fightPoints: 30,
+  isWearing: [],
 };
 
 
@@ -36,19 +37,19 @@ class User {
     this.prevX = this.x;
     this.prevY = this.y;
       if (e.key === 'ArrowUp') {
-        this.checkCollision(this.x, this.y - 5);
+        this.checkCollision(this.x, this.y - 6);
         if (this.collision !== 1) this.y -= motionDif;
         this.collision = 0;
       } else if (e.key === 'ArrowDown') {
-        this.checkCollision(this.x, this.y + 5);
+        this.checkCollision(this.x, this.y + 6);
         if (this.collision !== 1) this.y += motionDif;
         this.collision = 0;
       } else if (e.key === 'ArrowLeft') {
-        this.checkCollision(this.x - 5, this.y);
+        this.checkCollision(this.x - 6, this.y);
         if (this.collision !== 1) this.x -= motionDif; 
         this.collision = 0;
       } else if (e.key === 'ArrowRight') {
-        this.checkCollision(this.x + 5, this.y);
+        this.checkCollision(this.x + 6, this.y);
         if (this.collision !== 1) this.x += motionDif;
         this.collision = 0;
       }
@@ -183,7 +184,52 @@ const square2NorthEastSouth = [
 
 const kitchenwalls = [
   [150, 525, 35, 65], [250, 525, 35, 65], [90, 525, 90, 35], [250, 525, 220, 35], [460, 525, 35, 65], [560, 525, 35, 65], [560, 525, 160, 35], /// south
-  [90, 30, 35, 515] /// west
+  [90, 90, 35, 470], /// west
+  [320, 0, 35, 125], [450, 0, 35, 125], [90, 90, 230, 35], [450, 90, 290, 35], /// north
+  [715, 90, 35, 70], [715, 160, 65, 35], [715, 250, 65, 35], [715, 280, 35, 280], /// east
+  ];
+  
+const guestroomWest = [
+  [30, 0, 455, 35], /// north
+  [0, 160, 65, 35], [0, 250, 65, 35], [30, 30, 35, 130], [30, 250, 35, 290], /// west
+  [30, 520, 450, 35], /// south
+  [450, 30, 35, 525] /// east
+  ];
+  
+const storagewalls = [
+  [0, 90, 620, 35], /// north
+  [620, 90, 35, 425], /// east
+  [0, 90, 35, 425], /// west
+  [0, 515, 320, 35], [320, 515, 35, 125], [450, 515, 35, 125], [450, 515, 205, 35] /// south
+];
+  
+  
+const squareLargeEast = [
+  [290, 0, 35, 65], [450, 0, 35, 65], [30, 30, 290, 35], [450, 30, 290, 35],
+  [30, 30, 35, 195], [715, 30, 35, 95], 
+  [0, 190, 65, 35], [715, 90, 65, 35], [0, 350, 65, 35], [715, 450, 65, 35], /// east & west entrances
+  [30, 350, 35, 195], [715, 450, 35, 95],
+  [30, 515, 295, 35], [450, 515, 300, 35], [290, 525, 35, 65], [450, 525, 35, 65]
+];
+
+
+const gardenBottomWalls = [
+  [30, 0, 35, 125], 
+  [715, 0, 35, 545],
+  
+];
+  
+const gardenTopWalls = [
+  [30, 0, 35, 125], 
+  [715, 0, 35, 545],
+];
+
+const castleMuseumWalls = [
+  [290, 0, 35, 65], [450, 0, 35, 65], [30, 30, 290, 35], [450, 30, 290, 35],
+  [30, 30, 35, 195], [715, 30, 35, 95], 
+  [0, 190, 65, 35], [715, 90, 65, 35], [0, 350, 65, 35], [715, 450, 65, 35], /// east & west entrances
+  [30, 350, 35, 195], [715, 450, 35, 95],
+  [30, 515, 295, 35], [450, 515, 300, 35], [290, 525, 35, 65], [450, 525, 35, 65]
   ];
   
 
@@ -259,14 +305,14 @@ const westDining = {
 
 const eastDining = {
   roomName: 'East Dining',
-  wallStyle: square, //// actually should be squareLargeEast
+  wallStyle: squareLargeEast, //// actually should be squareLargeEast
   /*connectingRooms: [undefined, undefined, eastBallroom, centralHall],*/
   roomDescription: 'You are in the East Dining room. The large opening to the east leads to the garden patio.',
 };
 
 const anteRoom = {
   roomName: 'Ante Room',
-  wallStyle: annex, /// should be annex, annexextended is too wide
+  wallStyle: annex,
   roomDescription: 'You are in the Ante Room. Here People waited for an audience with the King. It was once lined with benches.',
   /*connectingRooms: [undefined, undefined, centralHall, undefined],*/
 };
@@ -299,6 +345,37 @@ const kitchen = {
   addlAttr: [kitchentable],
 };
 
+const chefsQuarters = {
+  name: 'Chef\'s Quarters',
+  wallStyle: guestroomWest,
+  roomDescription: 'You are in The Chef\'s Quarters. There is a small desk & a Bed here.',
+  addlAttr: [], /// desk & bed. there's a wine flask on the desk.
+};
+
+const storageroom = {
+  name: 'Storage Room',
+  wallStyle: storagewalls,
+  roomDescription: 'You are in the Storage room. There are Two large shelves in the middle, and a Small Staircase in one corner.',
+  
+};
+
+const gardenBottom = {
+  name: 'South Garden',
+  wallStyle: gardenBottomWalls,
+  roomDescription: 'You are in The South end of The Castle garden. In the center is a fountain.',
+};
+
+const gardenTop = {
+  name: 'North Garden',
+  wallStyle: gardenTopWalls,
+  roomDescription: 'You are In The North end of the Castle Garden. It is overgrown with bushes.',
+};
+
+const castleMuseum = {
+  
+  
+};
+
 /// setting connecting rooms
 centralHall.connectingRooms = [anteRoom, eastDining, welcomeHall, westDining];
 welcomeHall.connectingRooms = [centralHall, eastBallroom, entranceRoom, westBallroom];
@@ -307,12 +384,17 @@ castleCourtyard.connectingRooms = [entranceRoom, undefined, undefined, undefined
 westBallroom.connectingRooms = [westDining, welcomeHall, undefined, undefined];
 eastBallroom.connectingRooms = [eastDining, undefined, undefined, welcomeHall];
 westDining.connectingRooms = [kitchen, centralHall, westBallroom, undefined];
-eastDining.connectingRooms = [undefined, undefined, eastBallroom, centralHall];
+eastDining.connectingRooms = [castleMuseum, gardenBottom, eastBallroom, centralHall];
 anteRoom.connectingRooms = [throneRoom, undefined, centralHall, undefined];
 throneRoom.connectingRooms = [undefined, queensDrRoom, anteRoom, kingsDrRoom];
 kingsDrRoom.connectingRooms = [undefined, throneRoom, undefined, undefined];
 queensDrRoom.connectingRooms = [undefined, undefined, undefined, throneRoom];
-kitchen.connectingRooms = [undefined, undefined, westDining, undefined];
+kitchen.connectingRooms = [storageroom, chefsQuarters, westDining, undefined];
+chefsQuarters.connectingRooms = [undefined, undefined, undefined, kitchen];
+storageroom.connectingRooms = [undefined, undefined, kitchen, undefined];
+gardenBottom.connectingRooms = [gardenTop, undefined, undefined, eastDining];
+gardenTop.connectingRooms = [undefined, undefined, gardenBottom, castleMuseum];
+castleMuseum.connectingRooms = [undefined, gardenTop, eastDining, undefined];
 
 
 class Room {
@@ -376,7 +458,7 @@ function init(room, x, y) {
 }
 
 window.onload = function() {
-  init(kitchen, 350, 100);
+  init(eastDining, 450, 200);
   window.addEventListener('keyup', e => theRoom.typeInput(e));
   window.addEventListener('keydown', e => player.move(e));
 };
