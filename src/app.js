@@ -1,16 +1,13 @@
-//////// USER SETUP //////////
-
+////////// USER SETUP /////////
 
 const motionDif = 10;
-
-//// USER INITIAL STATE
+/*
 let user = {
   name: 'Hello',
   items: [],
   fightPoints: 30,
 };
-
-////// USER CLASS
+*/
 class User {
   constructor(user, x, y, ctx) {
     for (let metric in user) { this[metric] = user[metric]; }
@@ -54,9 +51,8 @@ class User {
         this.collision = 0;
       }
     if (this.y - 5 <= 0) {
-      init(theRoom.connectingRooms[0], this.x, 550);
-      this.x = 0;
-      this.y = 0;
+      // init(theRoom.connectingRooms[0], this.x, 550);
+      init(theRoom.connectingRooms[0], this.x, 350);
     }
     this.clear(this.prevX, this.prevY);
     this.draw(this.x, this.y, this.ctx);
@@ -81,7 +77,9 @@ class User {
 }
 
 
-class Wall {
+
+////// WALL SETUP ////////
+class Wall { 
   constructor(arr) {
     this.x = arr[0];
     this.y = arr[1];
@@ -97,49 +95,18 @@ class Wall {
   
 }
 
-
-class ExitPoint {
-  constructor(arr) {
-    this.x = arr[0];
-    this.y = arr[1];
-    this.w = arr[2];
-    this.h = arr[3];
-    this.fill = '#010101';
-  }
-  
-  draw(ctx) { 
-    ctx.fillStyle = this.fill;
-    ctx.fillRect(this.x, this.y, this.w, this.h);
-  }
-}
-
-
+/////// ROOM SETUP////////
 class Room {
   constructor(canv, room, x, y) {
     for (let key in canv) { this[key] = canv[key]; }
     for (let attr in room) { this[attr] = room[attr]; } // looping through object passed
     this.userPositionX = x;
     this.userPositionY = y;
-    this.entryAndExitArr = [];
     this.drawWalls();
-    this.setEntryAndExit();
-    this.drawExit();
+    /*this.newPlayer();
+    this.newPlayer = this.newPlayer.bind(this);*/
     this.player = new User(user, this.userPositionX, this.userPositionY, this.ctx);
   } /// end of constructor
-  
-  setEntryAndExit() {
-    for (let exit of this.entryAndExit) {
-      let Rect = new ExitPoint(exit);
-      this.entryAndExitArr.push(Rect);
-    }
-    console.log('testing');
-  }
-  
-  drawExit() { /// combine with set
-    for (let exit of this.entryAndExitArr) {
-      exit.draw(this.ctx);
-    }
-  }
   
   drawWalls() {
     for (let wall of this.wallStyle) {
@@ -151,9 +118,14 @@ class Room {
   typeInput(e) {
     //console.log(e.char);
   }
-
   
+/*  newPlayer() {
+    
+  }*/
+
 }
+
+////// CANVAS SETUP ///////////
 
 class CanvasState {
   constructor(canvas) {
@@ -172,10 +144,12 @@ class CanvasState {
   }
 }
 
+
+///// INITIALIZER //////////
+
 var canv;
 var theRoom;
 var canvas;
-
 
 let init = function init(room, x, y) {
   canv = document.getElementById('canvas');

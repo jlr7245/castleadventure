@@ -49,6 +49,7 @@ class User {
         this.collision = 0;
       }
     if (this.y - 5 <= 0) {
+      // init(theRoom.connectingRooms[0], this.x, 550);
       init(theRoom.connectingRooms[0], this.x, 550);
     }
     this.clear(this.prevX, this.prevY);
@@ -96,39 +97,24 @@ const stonewalls = {
 
 ////////// initial room styles (might go in own file?)
 
-const courtyard = [ [0, 0, 790, 35], [1, 1, 35, 588], [745, 1, 35, 588], [1, 554, 778, 35]  ];
+const courtyard = [ [0, 0, 290, 35], [450, 0, 320, 35], 
+  [0, 0, 35, 588], [745, 0, 35, 588], [1, 554, 778, 35]  ];
+
 const annexextended = [
-  [290, 0, 35, 165], 
-  [450, 0, 35, 165], 
-  [0, 130, 320, 35], 
-  [450, 130, 320, 35],
-  [0, 130, 35, 320],
-  [745, 130, 35, 320],
-  [0, 415, 320, 35],
-  [450, 415, 320, 35],
-  [290, 415, 35, 165],
-  [450, 415, 35, 165]
+  [290, 0, 35, 165], [450, 0, 35, 165], [0, 130, 320, 35], [450, 130, 320, 35],
+  [0, 130, 35, 320], [745, 130, 35, 320],
+  [0, 415, 320, 35], [450, 415, 320, 35], [290, 415, 35, 165], [450, 415, 35, 165],
   ];
+  
 const square = [
-  [290, 0, 35, 65],
-  [450, 0, 35, 65],
-  [30, 30, 290, 35],
-  [450, 30, 290, 35],
-  [30, 30, 35, 195],
-  [715, 30, 35, 195],
-  [0, 190, 65, 35],
-  [715, 190, 65, 35],
-  [0, 350, 65, 35],
-  [715, 350, 65, 35],
-  [30, 350, 35, 195],
-  [715, 350, 35, 195],
-  [30, 515, 295, 35],
-  [450, 515, 300, 35],
-  [290, 525, 35, 65],
-  [450, 525, 35, 65]
+  [290, 0, 35, 65], [450, 0, 35, 65], [30, 30, 290, 35], [450, 30, 290, 35],
+  [30, 30, 35, 195], [715, 30, 35, 195], 
+  [0, 190, 65, 35], [715, 190, 65, 35], [0, 350, 65, 35], [715, 350, 65, 35],
+  [30, 350, 35, 195], [715, 350, 35, 195],
+  [30, 515, 295, 35], [450, 515, 300, 35], [290, 525, 35, 65], [450, 525, 35, 65]
   ];
 
-class Wall { //// hmm. for some reason this looks JUST like the exitpoint class. maybe I should combine that too.
+class Wall { 
   constructor(arr) {
     this.x = arr[0];
     this.y = arr[1];
@@ -146,26 +132,12 @@ class Wall { //// hmm. for some reason this looks JUST like the exitpoint class.
 
 /// 780 x 590 // 1280 x 800 // x 330, y 235, w 120, h 220
 
-class ExitPoint {
-  constructor(arr) {
-    this.x = arr[0];
-    this.y = arr[1];
-    this.w = arr[2];
-    this.h = arr[3];
-    this.fill = '#010101';
-  }
-  
-  draw(ctx) { 
-    ctx.fillStyle = this.fill;
-    ctx.fillRect(this.x, this.y, this.w, this.h);
-  }
-}
+
 
 
 var welcomeHall = {
   roomName: 'Welcome Hall',
   wallStyle: square,
-  entryAndExit: [[330, 1, 120, 35], [330, 550, 120, 40]],
 };
 
 var entranceRoom = {
@@ -174,7 +146,6 @@ var entranceRoom = {
   roomDescription: 'You are in the Entrance room. Exits are to the north and south.',
   lookableAttributes: [stonewalls],
   wallStyle: annexextended,
-  entryAndExit: [ [330, 1, 120, 35], [330, 550, 120, 35] ], 
   connectingRooms: [welcomeHall, null, castleCourtyard, null]
 };
 
@@ -185,7 +156,6 @@ var castleCourtyard = {
   roomMonsters: [],
   roomItems: [],
   lookableAttributes: [gate, courtyardWall],
-  entryAndExit: [ [330, 0, 120, 35] ],
   wallStyle: courtyard,
   connectingRooms: [entranceRoom, null, null, null]
 };
@@ -193,31 +163,15 @@ var castleCourtyard = {
 
 
 class Room {
-  constructor(canv, room, x, y) {
+  constructor(canv, room, player) {
     for (let key in canv) { this[key] = canv[key]; }
     for (let attr in room) { this[attr] = room[attr]; } // looping through object passed
-    this.userPositionX = x;
-    this.userPositionY = y;
-    this.entryAndExitArr = [];
     this.drawWalls();
-    this.setEntryAndExit();
-    this.drawExit();
-    this.player = new User(user, this.userPositionX, this.userPositionY, this.ctx);
+    /*this.newPlayer();
+    this.newPlayer = this.newPlayer.bind(this);*/
+    this.player = player;
   } /// end of constructor
   
-  setEntryAndExit() {
-    for (let exit of this.entryAndExit) {
-      let Rect = new ExitPoint(exit);
-      this.entryAndExitArr.push(Rect);
-    }
-    console.log('testing');
-  }
-  
-  drawExit() { /// combine with set
-    for (let exit of this.entryAndExitArr) {
-      exit.draw(this.ctx);
-    }
-  }
   
   drawWalls() {
     for (let wall of this.wallStyle) {
@@ -229,6 +183,10 @@ class Room {
   typeInput(e) {
     //console.log(e.char);
   }
+  
+/*  newPlayer() {
+    
+  }*/
 
 }
 
@@ -254,10 +212,13 @@ var theRoom;
 var canvas;
 
 
+
 let init = function init(room, x, y) {
+  var player;
   canv = document.getElementById('canvas');
   canvas = new CanvasState(canv); 
-  theRoom = new Room(canvas, room, x, y);
+  player = new User(user, x, y, canvas.ctx); //// it's remembering the last player I set
+  theRoom = new Room(canvas, room, player);
   window.addEventListener('keydown', theRoom.player.move);
   window.addEventListener('keyup', theRoom.typeInput);
 };
