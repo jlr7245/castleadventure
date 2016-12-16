@@ -51,7 +51,6 @@ class User {
         this.collision = 0;
       }
     if (this.y - 5 <= 0) { //// top 
-      // init(theRoom.connectingRooms[0], this.x, 550);
       init(theRoom.connectingRooms[0], this.x, 550);
     } else if (this.x + 5 >= 780) { //// right
       init(theRoom.connectingRooms[1], this.y, 20);
@@ -146,7 +145,7 @@ class Wall {
 var welcomeHall = {
   roomName: 'Welcome Hall',
   wallStyle: square,
-  connectingRooms: [null, null, entranceRoom, null],
+  connectingRooms: [0, 0, entranceRoom, 0],
   roomDescription: 'You are in The Welcome Hall. This room was used to welcome guests. There are large archways in all four walls.',
 };
 
@@ -156,7 +155,7 @@ var entranceRoom = {
   roomDescription: 'You are in the Entrance room. Exits are to the north and south.',
   lookableAttributes: [stonewalls],
   wallStyle: annexextended,
-  connectingRooms: [welcomeHall, null, castleCourtyard, null]
+  connectingRooms: [welcomeHall, 0, castleCourtyard, 0]
 };
 
 var castleCourtyard = {
@@ -167,7 +166,7 @@ var castleCourtyard = {
   roomItems: [],
   lookableAttributes: [gate, courtyardWall],
   wallStyle: courtyard,
-  connectingRooms: [entranceRoom, null, null, null]
+  connectingRooms: [entranceRoom, 0, 0, 0]
 };
 
 
@@ -183,6 +182,7 @@ class Room {
   
   
   drawWalls() {
+    console.log(this.wallStyle);
     for (let wall of this.wallStyle) {
       let drawIt = new Wall(wall);
       drawIt.draw(this.ctx);
