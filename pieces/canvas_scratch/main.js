@@ -50,14 +50,14 @@ class User {
         if (this.collision !== 1) this.x += motionDif;
         this.collision = 0;
       }
-    if (this.y - 5 <= 0) {
+    if (this.y - 5 <= 0) { //// top 
       // init(theRoom.connectingRooms[0], this.x, 550);
       init(theRoom.connectingRooms[0], this.x, 550);
-    } else if (this.x + 5 >= 780) {
+    } else if (this.x + 5 >= 780) { //// right
       init(theRoom.connectingRooms[1], this.y, 20);
-    } else if (this.y + 5 >= 590) {
+    } else if (this.y + 5 >= 590) { //// bottom
       init(theRoom.connectingRooms[2], this.x, 20);
-    } else if (this.x - 5 <= 0) {
+    } else if (this.x - 5 <= 0) {  ///// left
       init(theRoom.connectingRooms[3], this.x, 750);
     }
     this.clear(this.prevX, this.prevY);
