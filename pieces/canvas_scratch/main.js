@@ -146,7 +146,8 @@ class Wall {
 var welcomeHall = {
   roomName: 'Welcome Hall',
   wallStyle: square,
-  connectingRooms: [null, null, welcomeHall, null],
+  connectingRooms: [null, null, entranceRoom, null],
+  roomDescription: 'You are in The Welcome Hall. This room was used to welcome guests. There are large archways in all four walls.',
 };
 
 var entranceRoom = {
@@ -176,9 +177,8 @@ class Room {
     for (let key in canv) { this[key] = canv[key]; }
     for (let attr in room) { this[attr] = room[attr]; } // looping through object passed
     this.drawWalls();
-    /*this.newPlayer();
-    this.newPlayer = this.newPlayer.bind(this);*/
     this.player = player;
+    this.writeDescrip();
   } /// end of constructor
   
   
@@ -193,9 +193,10 @@ class Room {
     //console.log(e.char);
   }
   
-/*  newPlayer() {
-    
-  }*/
+  writeDescrip() {
+    desc.innerHTML = this.roomDescription;
+  }
+  
 
 }
 
@@ -220,6 +221,8 @@ var canv;
 var theRoom;
 var canvas;
 var player;
+
+var desc = document.getElementById('roomdesc');
 
 
 function init(room, x, y) {
