@@ -214,22 +214,23 @@ const squareLargeEast = [
 
 
 const gardenBottomWalls = [
-  [30, 0, 35, 125], 
-  [715, 0, 35, 545],
+  [30, 0, 35, 90], [0, 90, 65, 35], [0, 450, 65, 35], [30, 450, 35, 90], /// west
+  [715, 0, 35, 545], //// east
+  [30, 540, 720, 35] //// south, no north
   
 ];
   
 const gardenTopWalls = [
-  [30, 0, 35, 125], 
-  [715, 0, 35, 545],
+  [30, 0, 35, 90], [0, 90, 65, 35], [0, 450, 65, 35], [30, 450, 35, 140], /// west
+  [715, 0, 35, 590], //// east
+  [30, 0, 720, 35] //// north
 ];
 
 const castleMuseumWalls = [
-  [290, 0, 35, 65], [450, 0, 35, 65], [30, 30, 290, 35], [450, 30, 290, 35],
-  [30, 30, 35, 195], [715, 30, 35, 95], 
-  [0, 190, 65, 35], [715, 90, 65, 35], [0, 350, 65, 35], [715, 450, 65, 35], /// east & west entrances
-  [30, 350, 35, 195], [715, 450, 35, 95],
-  [30, 515, 295, 35], [450, 515, 300, 35], [290, 525, 35, 65], [450, 525, 35, 65]
+  [220, 30, 515, 35], /// north
+  [220, 30, 35, 515],  /// west
+  [715, 90, 65, 35], [715, 450, 65, 35], [715, 30, 35, 95], [715, 450, 35, 95], /// east & west entrances 
+  [220, 515, 105, 35], [450, 515, 300, 35], [290, 525, 35, 65], [450, 525, 35, 65]
   ];
   
 
@@ -372,8 +373,9 @@ const gardenTop = {
 };
 
 const castleMuseum = {
-  
-  
+  name: 'Castle Museum',
+  wallStyle: castleMuseumWalls,
+  roomDescription: 'You are in The Castle Museum. This room was once decorated with many artifacts.',
 };
 
 /// setting connecting rooms
@@ -458,7 +460,7 @@ function init(room, x, y) {
 }
 
 window.onload = function() {
-  init(eastDining, 450, 200);
+  init(gardenTop, 450, 500);
   window.addEventListener('keyup', e => theRoom.typeInput(e));
   window.addEventListener('keydown', e => player.move(e));
 };
