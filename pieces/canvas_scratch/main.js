@@ -102,13 +102,19 @@ const courtyardWall = {
 const stonewalls = {
   name: 'Wall',
   look: 'The WALLS are made of Gray Stone.',
-}
+};
+
+const throne = {
+  name: 'Throne',
+  look: 'The throne is made of stone.',
+  get: 'THRONES are too heavy!',
+};
 
 
 ////////// initial room styles (might go in own file?)
 
 const courtyard = [ [0, 0, 290, 35], [450, 0, 320, 35], 
-  [0, 0, 35, 588], [745, 0, 35, 588], [1, 554, 778, 35]  ];
+  [0, 0, 35, 588], [745, 0, 35, 588], [0, 554, 778, 35]  ];
 
 const annexextended = [
   [290, 0, 35, 165], [450, 0, 35, 165], [0, 130, 320, 35], [450, 130, 320, 35],
@@ -119,14 +125,32 @@ const annexextended = [
 const square = [
   [290, 0, 35, 65], [450, 0, 35, 65], [30, 30, 290, 35], [450, 30, 290, 35],
   [30, 30, 35, 195], [715, 30, 35, 195], 
-  [0, 190, 65, 35], [715, 190, 65, 35], [0, 350, 65, 35], [715, 350, 65, 35],
+  [0, 190, 65, 35], [715, 190, 65, 35], [0, 350, 65, 35], [715, 350, 65, 35], /// east & west entrances
   [30, 350, 35, 195], [715, 350, 35, 195],
-  [30, 515, 295, 35], [450, 515, 300, 35], [290, 525, 35, 65], [450, 525, 35, 65]
+  [30, 515, 295, 35], [450, 515, 300, 35], [290, 525, 35, 65], [450, 525, 35, 65] /// bottom
   ];
   
 const squareNorthAndEast = [
-  
+  [290, 0, 35, 65], [450, 0, 35, 65], [30, 30, 290, 35], [450, 30, 290, 35], /// north
+  [30, 30, 35, 530], [30, 530, 720, 35], /// west & south
+  [715, 350, 35, 195], [715, 30, 35, 195], [750, 350, 35, 35], [750, 190, 35, 35] /// east
 ];
+
+const squareNorthAndWest = [
+  [290, 0, 35, 65], [450, 0, 35, 65], [30, 30, 290, 35], [450, 30, 290, 35], /// north
+  [30, 350, 35, 195], [30, 30, 35, 195], [0, 350, 35, 35], [0, 190, 35, 35], /// west
+  [715, 30, 35, 530], [30, 530, 720, 35], /// south & east
+];
+  
+const annex = [
+  [290, 0, 35, 165], [450, 0, 35, 165], [150, 130, 140, 35], [450, 130, 165, 35],
+  [150, 130, 35, 320], [595, 130, 35, 320],
+  [150, 415, 165, 35], [450, 415, 165, 35], [290, 415, 35, 165], [450, 415, 35, 165],
+];
+
+const throneRm = [
+  [30, 515, 295, 35], [450, 515, 300, 35], [290, 525, 35, 65], [450, 525, 35, 65] //// bottom
+  ];
 
 class Wall { 
   constructor(arr) {
@@ -150,14 +174,12 @@ class Wall {
 const centralHall = {
   roomName: 'Central Hall',
   wallStyle: square,
-/*  connectingRooms: [anteRoom, eastDining, welcomeHall, westDining],
-*/  roomDescription: 'You are in The Central Hall. Exits are in all directions. There is a large spiral staircase in the middle.',
+   roomDescription: 'You are in The Central Hall. Exits are in all directions. There is a large spiral staircase in the middle.',
 };
 
 const welcomeHall = {
   roomName: 'Welcome Hall',
   wallStyle: square,
-  /*connectingRooms: [centralHall, eastBallroom, entranceRoom, westBallroom],*/
   roomDescription: 'You are in The Welcome Hall. This room was used to welcome guests. There are large archways in all four walls.',
 };
 
@@ -167,7 +189,6 @@ const entranceRoom = {
   roomDescription: 'You are in the Entrance room. Exits are to the north and south.',
   lookableAttributes: [stonewalls],
   wallStyle: annexextended,
-  /*connectingRooms: [welcomeHall, undefined, castleCourtyard, undefined]*/
 };
 
 const castleCourtyard = {
@@ -178,22 +199,19 @@ const castleCourtyard = {
   roomItems: [],
   lookableAttributes: [gate, courtyardWall],
   wallStyle: courtyard,
-  /*connectingRooms: [entranceRoom, undefined, undefined, undefined]*/
 };
 
 const westBallroom = {
   roomName: 'West Ballroom',
-  wallStyle: square, /// should be squareNorthAndEast
+  wallStyle: squareNorthAndEast, 
   staircaseExit: [],
   hasMonster: true,
   roomDescription: 'You are in The West Ballroom. There are arch ways to the north & east; a spiral staircase in one corner.',
-  /*connectingRooms: [westDining, welcomeHall, undefined, undefined],*/
 };
 
 const eastBallroom = {
   roomName: 'East Ballroom',
-  wallStyle: square, /// should be squareNorthAndWest
-  /*connectingRooms: [eastDining, undefined, undefined, welcomeHall],*/
+  wallStyle: squareNorthAndWest, 
   roomDescription: 'You are in The East Ballroom. There are arch ways to the north & west; a spiral staircase in one corner.',
 };
 
@@ -205,7 +223,7 @@ const westDining = {
 };
 
 const eastDining = {
-  roomName: 'eastDining',
+  roomName: 'East Dining',
   wallStyle: square, //// actually should be squareLargeEast
   /*connectingRooms: [undefined, undefined, eastBallroom, centralHall],*/
   roomDescription: 'You are in the East Dining room. The large opening to the east leads to the garden patio.',
@@ -213,9 +231,26 @@ const eastDining = {
 
 const anteRoom = {
   roomName: 'Ante Room',
-  wallStyle: annexextended, /// should be annex, annexextended is too wide
+  wallStyle: annex, /// should be annex, annexextended is too wide
   roomDescription: 'You are in the Ante Room. Here People waited for an audience with the King. It was once lined with benches.',
   /*connectingRooms: [undefined, undefined, centralHall, undefined],*/
+};
+
+const throneRoom = {
+  roomName: 'Throne Room',
+  wallStyle: throneRm,
+  roomDescription: 'You are in the Throne Room. There is a Large Throne at one end of the room.',
+  roomMonsters: [],
+  roomItems: [],
+  additionalAttributes: [throne],
+};
+
+const kingsDrRoom = {
+  
+};
+
+const queensDrRoom = {
+  
 };
 
 /// setting connecting rooms
@@ -227,7 +262,8 @@ westBallroom.connectingRooms = [westDining, welcomeHall, undefined, undefined];
 eastBallroom.connectingRooms = [eastDining, undefined, undefined, welcomeHall];
 westDining.connectingRooms = [undefined, centralHall, westBallroom, undefined];
 eastDining.connectingRooms = [undefined, undefined, eastBallroom, centralHall];
-anteRoom.connectingRooms = [undefined, undefined, centralHall, undefined];
+anteRoom.connectingRooms = [throneRoom, undefined, centralHall, undefined];
+throneRoom.connectingRooms = [undefined, kingsDrRoom, anteRoom, queensDrRoom];
 
 
 class Room {
@@ -292,7 +328,7 @@ function init(room, x, y) {
 }
 
 window.onload = function() {
-  init(castleCourtyard, 350, 100);
+  init(throneRoom, 350, 100);
   window.addEventListener('keyup', e => theRoom.typeInput(e));
   window.addEventListener('keydown', e => player.move(e));
 };
