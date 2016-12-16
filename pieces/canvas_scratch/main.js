@@ -51,10 +51,12 @@ class User {
         this.collision = 0;
       }
     if (this.y - 5 <= 0) { //// top 
+    console.log(theRoom.connectingRooms);
       init(theRoom.connectingRooms[0], this.x, 550);
     } else if (this.x + 5 >= 780) { //// right
       init(theRoom.connectingRooms[1], this.y, 20);
     } else if (this.y + 5 >= 590) { //// bottom
+      console.log(theRoom.connectingRooms[2]);
       init(theRoom.connectingRooms[2], this.x, 20);
     } else if (this.x - 5 <= 0) {  ///// left
       init(theRoom.connectingRooms[3], this.x, 750);
@@ -120,6 +122,10 @@ const square = [
   [30, 350, 35, 195], [715, 350, 35, 195],
   [30, 515, 295, 35], [450, 515, 300, 35], [290, 525, 35, 65], [450, 525, 35, 65]
   ];
+  
+const squareNorthAndEast = [
+  
+];
 
 class Wall { 
   constructor(arr) {
@@ -139,26 +145,40 @@ class Wall {
 
 /// 780 x 590 // 1280 x 800 // x 330, y 235, w 120, h 220
 
+var centralHall = {};
+var welcomeHall = {};
+var entranceRoom = {};
+var castleCourtyard = {};
+var westBallroom = {};
+var eastBallroom = {};
+var westDining = {};
+var eastDining = {};
+var anteRoom = {};
 
+centralHall = {
+  roomName: 'Central Hall',
+  wallStyle: square,
+  connectingRooms: [anteRoom, eastDining, welcomeHall, westDining],
+  roomDescription: 'You are in The Central Hall. Exits are in all directions. There is a large spiral staircase in the middle.',
+};
 
-
-var welcomeHall = {
+welcomeHall = {
   roomName: 'Welcome Hall',
   wallStyle: square,
-  connectingRooms: [0, 0, entranceRoom, 0],
+  connectingRooms: [centralHall, eastBallroom, entranceRoom, westBallroom],
   roomDescription: 'You are in The Welcome Hall. This room was used to welcome guests. There are large archways in all four walls.',
 };
 
-var entranceRoom = {
+entranceRoom = {
   roomName: 'Entrance Room',
   roomOrder: 2,
   roomDescription: 'You are in the Entrance room. Exits are to the north and south.',
   lookableAttributes: [stonewalls],
   wallStyle: annexextended,
-  connectingRooms: [welcomeHall, 0, castleCourtyard, 0]
+  connectingRooms: [welcomeHall, undefined, castleCourtyard, undefined]
 };
 
-var castleCourtyard = {
+castleCourtyard = {
   roomName: 'Castle Courtyard',
   roomOrder: 1,
   roomDescription: 'You are in the Castle Courtyard. To the north is a large Doorway. To the south is a large Gate.',
@@ -166,9 +186,45 @@ var castleCourtyard = {
   roomItems: [],
   lookableAttributes: [gate, courtyardWall],
   wallStyle: courtyard,
-  connectingRooms: [entranceRoom, 0, 0, 0]
+  connectingRooms: [entranceRoom, undefined, undefined, undefined]
 };
 
+westBallroom = {
+  roomName: 'West Ballroom',
+  wallStyle: square, /// should be squareNorthAndEast
+  staircaseExit: [],
+  hasMonster: true,
+  roomDescription: 'You are in The West Ballroom. There are arch ways to the north & east; a spiral staircase in one corner.',
+  connectingRooms: [westDining, welcomeHall, undefined, undefined],
+};
+
+eastBallroom = {
+  roomName: 'East Ballroom',
+  wallStyle: square, /// should be squareNorthAndWest
+  connectingRooms: [eastDining, undefined, undefined, welcomeHall],
+  roomDescription: 'You are in The East Ballroom. There are arch ways to the north & west; a spiral staircase in one corner.',
+};
+
+westDining = {
+  roomName: 'West Dining',
+  wallStyle: square, //// actually this should be square2NorthEastSouth
+  connectingRooms: [undefined, centralHall, westBallroom, undefined],
+  roomDescription: 'You are in the West Dining room. There are 2 door ways to the north, & arch ways to the east & south.',
+};
+
+eastDining = {
+  roomName: 'eastDining',
+  wallStyle: square, //// actually should be squareLargeEast
+  connectingRooms: [undefined, undefined, eastBallroom, centralHall],
+  roomDescription: 'You are in the East Dining room. The large opening to the east leads to the garden patio.',
+};
+
+anteRoom = {
+  roomName: 'Ante Room',
+  wallStyle: annexextended, /// should be annex, annexextended is too wide
+  roomDescription: 'You are in the Ante Room. Here People waited for an audience with the King. It was once lined with benches.',
+  connectingRooms: [undefined, undefined, centralHall, undefined],
+};
 
 
 class Room {
