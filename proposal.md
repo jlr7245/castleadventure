@@ -33,14 +33,14 @@
 
 
 ## Levels of completion
-#### ~~Level -2~~ Achieved 12/16
+#### ~~Level -2~~ *Achieved 12/16*
 - Two rooms
 - Player can move betwen rooms
 - Rooms have walls that can be collided with and entry/exit points
 
 #### Level -1
 - A full "floor" of rooms ~~(5-10)~~ *25 rooms achieved 12/16*
-- Computer understands text input
+- Computer understands text input *added 12/17*
 - Addition of objects that can be interacted with and interacted upon
 - ***Win scenario***
 
