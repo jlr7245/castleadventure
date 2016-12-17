@@ -2,6 +2,9 @@
 
 const motionDif = 10;
 
+const alph = "abcdefghijklmnopqrstuvwxyz ";
+const alphabetArray = alph.split('');
+
 const user = {
   name: 'Hello',
   inventory: [],
@@ -48,7 +51,8 @@ class User {
         this.checkCollision(this.x, this.y + 6);
         if (this.collision === 0) this.y += motionDif;
           else if (this.collision == 2) {
-            user.inventory.push(theRoom.roomItems[0]);
+            user.inventory.push(theRoom.ref.roomItems[0]);
+            theRoom.ref.roomItems.shift();
             this.ctx.clearRect((this.x),(this.y+25),100,100);
           }
         this.collision = 0;
@@ -138,8 +142,9 @@ const kitchentable = {
 
 
 const necklace = {
-  x: 300,
-  y: 300,
+  name: 'necklace',
+  x: 450,
+  y: 100,
   str: '§',
 };
 
@@ -305,7 +310,7 @@ const castleCourtyard = {
   roomOrder: 1,
   roomDescription: 'You are in the Castle Courtyard. To the north is a large Doorway. To the south is a large Gate.',
   roomMonsters: [],
-  roomItems: [necklace],
+  roomItems: [],
   lookableAttributes: [gate, courtyardWall],
   wallStyle: courtyard,
 };
@@ -361,8 +366,10 @@ const kingsDrRoom = {
 };
 
 const queensDrRoom = {
+  room: this,
   roomName: 'Queen\'s Dressing Room',
   wallStyle: smallWest,
+  roomItems: [necklace],
   roomDescription: 'You are in the Queen\'s Dressing room. It was once filled with clothes. There is a Staircase in one corner.',
 };
 
@@ -430,6 +437,7 @@ class Room {
   constructor(canv, room, player) {
     for (let key in canv) { this[key] = canv[key]; }
     for (let attr in room) { this[attr] = room[attr]; } // looping through object passed
+    this.ref = room;
     this.drawWalls();
     this.player = player;
     this.drawItems();
@@ -450,16 +458,31 @@ class Room {
         this.ctx.font = "20px terminal";
         this.ctx.fillStyle = "#bbbbbb";
         this.ctx.fillText(item.str, item.x, item.y);
-      }
-    }
+        output.innerHTML = ` ${ item.str } ${ item.name.toUpperCase() }`;
+      } 
+    } 
   }
   
   typeInput(e) {
-    //console.log(e.char);
+    if (alphabetArray.indexOf(e.key) != -1) {
+      str += e.key;
+      input.innerHTML = str.toUpperCase();
+    } else if (e.keyCode == 8) {
+      str = str.substring(0, str.length - 1);
+      input.innerHTML = str.toUpperCase();
+    } else if (e.keyCode == 13) {
+      this.inputChecker(str.split(' '));
+      input.innerHTML = '';
+      str = '';
+    }
   }
   
   writeDescrip() {
     desc.innerHTML = this.roomDescription;
+  }
+  
+  inputChecker(arr) {
+    console.log(arr);
   }
   
 
@@ -479,6 +502,7 @@ class CanvasState {
   clear() {
     this.ctx.fillStyle = 'black';
     this.ctx.fillRect(0,0,this.width,this.height);
+    output.innerHTML = '';
   }
 }
 
@@ -486,8 +510,12 @@ var canv;
 var theRoom;
 var canvas;
 var player;
+let str = '';
 
 var desc = document.getElementById('roomdesc');
+var output = document.getElementById('itemoutput');
+var tellme = document.getElementById('tellme');
+var input = document.getElementById('inputview');
 
 
 function init(room, x, y) {
@@ -498,7 +526,8 @@ function init(room, x, y) {
 }
 
 window.onload = function() {
-  init(castleCourtyard, 450, 500);
+  init(queensDrRoom, 200, 100);
   window.addEventListener('keyup', e => theRoom.typeInput(e));
   window.addEventListener('keydown', e => player.move(e));
 };
+

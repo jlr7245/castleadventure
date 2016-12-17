@@ -62,4 +62,46 @@ canvas {
   border: 3px solid #aaa;
   box-sizing: border-box;
   padding: 20px;
+  display: inline-block;
+}
+
+#leftinfo {
+  display: inline-block;
+  width: 300px;
+  vertical-align: top;
+}
+
+#userinput {
+  display: inline-block;
+  width: 300px;
+}
+
+#bottominfo {
+  width: 820px;
+  display: inline-block;
+}
+
+#inputview:before {
+  content: '?';
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  margin-right: 15px;
+}
+
+#inputview:after {
+  content: '_';
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  animation: 1s blink step-end infinite;
+}
+
+@keyframes blink {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: white;
+  }
 }
