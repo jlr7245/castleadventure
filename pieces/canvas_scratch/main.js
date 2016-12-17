@@ -501,8 +501,8 @@ class Room {
       str = str.substring(0, str.length - 1);
       input.innerHTML = str.toUpperCase();
     } else if (e.keyCode == 13) {
-      this.inputChecker(str.split(' '));
       input.innerHTML = '';
+      this.inputChecker(str.split(' '));
       str = '';
     }
   }
