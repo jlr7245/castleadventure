@@ -1,0 +1,101 @@
+/* Setup */
+
+@font-face {
+    font-family: 'terminal';
+    src: url('fonts/pxplus_ibm_vga8-2x-webfont.woff2') format('woff2'),
+         url('fonts/pxplus_ibm_vga8-2x-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+
+body {
+  font-size: 24px;
+  margin: 40px;
+  background-color: black;
+  /*text-align: center;*/
+  color: #aaa;
+  font-family: 'terminal', monospace;
+}
+
+
+
+/* button & input reset */
+button, input {
+    background: none;
+    border: 0;
+    color: inherit;
+    /* cursor: default; */
+    font: inherit;
+    line-height: normal;
+    overflow: visible;
+    padding: 0;
+    -webkit-appearance: button; /* for input */
+    -moz-appearance:button;
+    -webkit-user-select: none; /* for button */
+       -moz-user-select: none;
+        -ms-user-select: none;
+}
+input::-moz-focus-inner,
+button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+button:focus, input:focus {
+  outline:none;
+}
+
+canvas {
+  background-color: black;
+  border: 3px solid #aaa;
+  box-sizing: border-box;
+  padding: 10px;
+  display: inline-block;
+}
+
+#leftinfo {
+  display: inline-block;
+  width: 450px; /* should be 500px */
+  vertical-align: top;
+}
+
+#userinput {
+  display: inline-block;
+  width: 450px; /* should be 500px */
+}
+
+#bottominfo {
+  width: 820px;
+  display: inline-block;
+}
+
+#inputview:before {
+  content: '?';
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  margin-right: 15px;
+}
+
+#tellme {
+  margin-top: 250px;
+}
+
+#inputview:after {
+  content: '_';
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  animation: 0.7s blink step-end infinite;
+}
+
+@keyframes blink {
+  from, to {
+    color: transparent;
+  }
+  50% {
+    color: #aaa;
+  }
+}

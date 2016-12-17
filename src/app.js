@@ -1,13 +1,20 @@
-////////// USER SETUP /////////
+console.log('Here is the app itself!');
 
-const motionDif = 10;
-/*
-let user = {
+const motionDif = 20;
+
+const alph = "abcdefghijklmnopqrstuvwxyz ";
+const alphabetArray = alph.split('');
+
+/*const user = {
   name: 'Hello',
-  items: [],
+  inventory: [],
+  inventoryAsString: [],
   fightPoints: 30,
-};
-*/
+  isWearing: [],
+};*/
+
+
+
 class User {
   constructor(user, x, y, ctx) {
     for (let metric in user) { this[metric] = user[metric]; }
@@ -20,9 +27,9 @@ class User {
     this.ctx = ctx;
     this.collision = 0;
     this.draw(this.initialX, this.initialY, this.ctx);
-    this.move = this.move.bind(this);
+/*    this.move = this.move.bind(this);
     this.clear = this.clear.bind(this);
-    this.checkCollision = this.checkCollision.bind(this);
+    this.checkCollision = this.checkCollision.bind(this);*/
   }
 
   draw(x, y, ctx) {
@@ -34,28 +41,57 @@ class User {
     this.prevX = this.x;
     this.prevY = this.y;
       if (e.key === 'ArrowUp') {
-        this.checkCollision(this.x, this.y - 5);
-        if (this.collision !== 1) this.y -= motionDif;
+        this.checkCollision(this.x, this.y - 6);
+        if (this.collision === 0) this.y -= motionDif;
+          else if (this.collision == 2) {
+            user.inventory.push(theRoom.ref.roomItems[0]);
+            user.inventoryAsString.push(theRoom.ref.roomItems[0].name);
+            theRoom.ref.roomItems.shift();
+            this.ctx.clearRect((this.x),(this.y-25),100,100);
+          } /// another elseif for colliding w stairs
         this.collision = 0;
       } else if (e.key === 'ArrowDown') {
-        this.checkCollision(this.x, this.y + 5);
-        if (this.collision !== 1) this.y += motionDif;
+        this.checkCollision(this.x, this.y + 6);
+        if (this.collision === 0) this.y += motionDif;
+          else if (this.collision == 2) {
+            user.inventory.push(theRoom.ref.roomItems[0]);
+            user.inventoryAsString.push(theRoom.ref.roomItems[0].name);
+            theRoom.ref.roomItems.shift();
+            this.ctx.clearRect((this.x),(this.y+25),100,100);
+          } /// another elseif for colliding w stairs
         this.collision = 0;
       } else if (e.key === 'ArrowLeft') {
-        this.checkCollision(this.x - 5, this.y);
-        if (this.collision !== 1) this.x -= motionDif; 
+        this.checkCollision(this.x - 6, this.y);
+        if (this.collision === 0) this.x -= motionDif; 
+          else if (this.collision == 2) {
+            user.inventory.push(theRoom.ref.roomItems[0]);
+            user.inventoryAsString.push(theRoom.ref.roomItems[0].name);
+            theRoom.ref.roomItems.shift();
+            this.ctx.clearRect((this.x-25),(this.y),100,100);
+          } /// another elseif for colliding w stairs
         this.collision = 0;
       } else if (e.key === 'ArrowRight') {
-        this.checkCollision(this.x + 5, this.y);
-        if (this.collision !== 1) this.x += motionDif;
+        this.checkCollision(this.x + 6, this.y);
+        if (this.collision === 0) this.x += motionDif;
+           else if (this.collision == 2) {
+            user.inventory.push(theRoom.ref.roomItems[0]);
+            user.inventoryAsString.push(theRoom.ref.roomItems[0].name);
+            theRoom.ref.roomItems.shift();
+            this.ctx.clearRect((this.x+25),(this.y),100,100);
+          } /// another elseif for colliding w stairs
         this.collision = 0;
       }
-    if (this.y - 5 <= 0) {
-      // init(theRoom.connectingRooms[0], this.x, 550);
-      init(theRoom.connectingRooms[0], this.x, 350);
-    }
     this.clear(this.prevX, this.prevY);
     this.draw(this.x, this.y, this.ctx);
+    if (this.y - 5 <= 0) { //// top 
+      init(theRoom.connectingRooms[0], this.x, 550);
+    } else if (this.x + 5 >= 780) { //// right
+      init(theRoom.connectingRooms[1], 20, this.y);
+    } else if (this.y + 5 >= 590) { //// bottom
+      init(theRoom.connectingRooms[2], this.x, 20);
+    } else if (this.x - 5 <= 0) {  ///// left
+      init(theRoom.connectingRooms[3], 750, this.y);
+    }
   }
   
   clear(x, y) {
@@ -70,6 +106,10 @@ class User {
         this.collision = 1;
         console.log('bonk');
         break;
+      } else if (pix[i] === 187) {
+        this.collision = 2;
+        console.log('oooh, theres something here');
+        break;
       }
     }
   }
@@ -78,36 +118,19 @@ class User {
 
 
 
-////// WALL SETUP ////////
-class Wall { 
-  constructor(arr) {
-    this.x = arr[0];
-    this.y = arr[1];
-    this.w = arr[2];
-    this.h = arr[3];
-    this.fill = '#cccccc';
-  }
-  
-  draw(ctx) { 
-    ctx.fillStyle = this.fill;
-    ctx.fillRect(this.x, this.y, this.w, this.h);
-  }
-  
-}
-
-/////// ROOM SETUP////////
+//// ROOM CLASS ///
 class Room {
-  constructor(canv, room, x, y) {
+  constructor(canv, room, player) {
     for (let key in canv) { this[key] = canv[key]; }
     for (let attr in room) { this[attr] = room[attr]; } // looping through object passed
-    this.userPositionX = x;
-    this.userPositionY = y;
+    this.ref = room;
     this.drawWalls();
-    /*this.newPlayer();
-    this.newPlayer = this.newPlayer.bind(this);*/
-    this.player = new User(user, this.userPositionX, this.userPositionY, this.ctx);
+    this.player = player;
+    this.drawItems();
+    this.writeDescrip();
   } /// end of constructor
   
+ //// SETTING UP TO DRAW WALLS /// 
   drawWalls() {
     for (let wall of this.wallStyle) {
       let drawIt = new Wall(wall);
@@ -115,18 +138,73 @@ class Room {
     }
   }
   
-  typeInput(e) {
-    //console.log(e.char);
+  //// DRAWING ITEMS ///
+  drawItems() {
+    if (this.roomItems !== undefined) {
+      for (let item of this.roomItems) {
+        this.ctx.font = "20px terminal";
+        this.ctx.fillStyle = "#bbbbbb";
+        this.ctx.fillText(item.str, item.x, item.y);
+        output.innerHTML = ` ${ item.str } ${ item.name.toUpperCase() }`;
+      } 
+    } 
   }
   
-/*  newPlayer() {
-    
-  }*/
+  //// USER INPUT ///
+  typeInput(e) {
+    if (alphabetArray.indexOf(e.key) != -1) {
+      str += e.key;
+      input.innerHTML = str.toUpperCase();
+    } else if (e.keyCode == 8) {
+      str = str.substring(0, str.length - 1);
+      input.innerHTML = str.toUpperCase();
+    } else if (e.keyCode == 13) {
+      input.innerHTML = '';
+      this.inputChecker(str.split(' '));
+      str = '';
+    }
+  }
+  
+  /// ROOM DESCRIPTION ///
+  writeDescrip() {
+    desc.innerHTML = this.roomDescription;
+  }
+  
+  
+  //// INPUT UNDERSTANDING LOGIC ///
+  inputChecker(arr) {
+    console.log(arr);
+    if (arr.length == 1 && arr[0] == 'inventory') {
+      if (user.inventory.length === 0) {
+        tellme.innerHTML = 'You aren\'t carrying anything yet!';
+      } else {
+        let inven = '';
+        for (let i = 0; i < user.inventory.length; i++) {
+          console.log(user.inventory);
+          console.log(user.inventory[i]);
+          inven += `${ user.inventory[i].str } ${ user.inventory[i].name.toUpperCase() } <br/>`;
+        }
+        tellme.innerHTML = `- Inventory - <br/> ${ inven }`;
+      }
+    } else if (arr.length == 2) {
+      if ((commandsAsStrings.indexOf(arr[0]) != -1) && (user.inventoryAsString.indexOf(arr[1])  != -1)) {
+        let theCommand = arrayOfCommands[commandsAsStrings.indexOf(arr[0])];
+        let theObject = user.inventory[user.inventoryAsString.indexOf(arr[1])];
+        theCommand(theObject);
+      } 
+    } else { //// turn this into a function sayWhat???
+      tellme.innerHTML = 'What???';
+      window.setTimeout(function(){tellme.innerHTML='';}, 100);
+      window.setTimeout(function(){tellme.innerHTML = 'What???'},150);
+      window.setTimeout(function(){tellme.innerHTML='';}, 350);
+    }
+  }
+  
 
 }
 
-////// CANVAS SETUP ///////////
 
+//// CANVAS STATE CLASS ///
 class CanvasState {
   constructor(canvas) {
     this.canvas = canvas;
@@ -136,29 +214,41 @@ class CanvasState {
     this.clear = this.clear.bind(this);
     this.clear();
   }
-  //// stuff goes here
-  
+
   clear() {
     this.ctx.fillStyle = 'black';
     this.ctx.fillRect(0,0,this.width,this.height);
+    output.innerHTML = '';
+    tellme.innerHTML = '';
   }
 }
 
 
-///// INITIALIZER //////////
 
+//////// SETUP FOR PAGE LOAD //////
 var canv;
 var theRoom;
 var canvas;
+var player;
+let str = '';
 
-let init = function init(room, x, y) {
+var desc = document.getElementById('roomdesc');
+var output = document.getElementById('itemoutput');
+var tellme = document.getElementById('tellme');
+var input = document.getElementById('inputview');
+
+///// INITIATOR FUNCTION //////
+function init(room, x, y) {
   canv = document.getElementById('canvas');
-  canvas = new CanvasState(canv); 
-  theRoom = new Room(canvas, room, x, y);
-  window.addEventListener('keydown', theRoom.player.move);
-  window.addEventListener('keyup', theRoom.typeInput);
-};
+  canvas = new CanvasState(canv);
+  player = new User(user, x, y, canvas.ctx);
+  theRoom = new Room(canvas, room, player);
+}
 
+
+//// WINDOW ONLOAD ///
 window.onload = function() {
-  init(castleCourtyard, 350, 100);
+  init(queensDrRoom, 200, 100);
+  window.addEventListener('keyup', e => theRoom.typeInput(e));
+  window.addEventListener('keydown', e => player.move(e));
 };

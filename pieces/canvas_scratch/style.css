@@ -12,7 +12,7 @@
 
 
 body {
-  font-size: 20px;
+  font-size: 24px;
   margin: 40px;
   background-color: black;
   /*text-align: center;*/
@@ -57,13 +57,13 @@ canvas {
 
 #leftinfo {
   display: inline-block;
-  width: 300px;
+  width: 450px; /* should be 500px */
   vertical-align: top;
 }
 
 #userinput {
   display: inline-block;
-  width: 300px;
+  width: 450px; /* should be 500px */
 }
 
 #bottominfo {

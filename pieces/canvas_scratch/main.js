@@ -8,6 +8,7 @@ const alphabetArray = alph.split('');
 const user = {
   name: 'Hello',
   inventory: [],
+  inventoryAsString: [],
   fightPoints: 30,
   isWearing: [],
 };
@@ -44,36 +45,40 @@ class User {
         if (this.collision === 0) this.y -= motionDif;
           else if (this.collision == 2) {
             user.inventory.push(theRoom.ref.roomItems[0]);
+            user.inventoryAsString.push(theRoom.ref.roomItems[0].name);
             theRoom.ref.roomItems.shift();
             this.ctx.clearRect((this.x),(this.y-25),100,100);
-          }
+          } /// another elseif for colliding w stairs
         this.collision = 0;
       } else if (e.key === 'ArrowDown') {
         this.checkCollision(this.x, this.y + 6);
         if (this.collision === 0) this.y += motionDif;
           else if (this.collision == 2) {
             user.inventory.push(theRoom.ref.roomItems[0]);
+            user.inventoryAsString.push(theRoom.ref.roomItems[0].name);
             theRoom.ref.roomItems.shift();
             this.ctx.clearRect((this.x),(this.y+25),100,100);
-          }
+          } /// another elseif for colliding w stairs
         this.collision = 0;
       } else if (e.key === 'ArrowLeft') {
         this.checkCollision(this.x - 6, this.y);
         if (this.collision === 0) this.x -= motionDif; 
           else if (this.collision == 2) {
             user.inventory.push(theRoom.ref.roomItems[0]);
+            user.inventoryAsString.push(theRoom.ref.roomItems[0].name);
             theRoom.ref.roomItems.shift();
             this.ctx.clearRect((this.x-25),(this.y),100,100);
-          }
+          } /// another elseif for colliding w stairs
         this.collision = 0;
       } else if (e.key === 'ArrowRight') {
         this.checkCollision(this.x + 6, this.y);
         if (this.collision === 0) this.x += motionDif;
            else if (this.collision == 2) {
             user.inventory.push(theRoom.ref.roomItems[0]);
+            user.inventoryAsString.push(theRoom.ref.roomItems[0].name);
             theRoom.ref.roomItems.shift();
             this.ctx.clearRect((this.x+25),(this.y),100,100);
-          }
+          } /// another elseif for colliding w stairs
         this.collision = 0;
       }
     this.clear(this.prevX, this.prevY);
@@ -399,7 +404,6 @@ const queensDrRoom = {
   roomName: 'Queen\'s Dressing Room',
   wallStyle: smallWest,
   roomItems: [necklace],
-  roomItemsAsStrings: ['necklace'],
   roomDescription: 'You are in the Queen\'s Dressing room. It was once filled with clothes. There is a Staircase in one corner.',
 };
 
@@ -523,12 +527,12 @@ class Room {
           console.log(user.inventory[i]);
           inven += `${ user.inventory[i].str } ${ user.inventory[i].name.toUpperCase() } <br/>`;
         }
-        tellme.innerHTML = `INVENTORY <br/> ${ inven }`;
+        tellme.innerHTML = `- Inventory - <br/> ${ inven }`;
       }
     } else if (arr.length == 2) {
-      if ((commandsAsStrings.indexOf(arr[0]) != -1) && (this.roomItemsAsStrings.indexOf(arr[1]) != -1)) {
+      if ((commandsAsStrings.indexOf(arr[0]) != -1) && (user.inventoryAsString.indexOf(arr[1])  != -1)) {
         let theCommand = arrayOfCommands[commandsAsStrings.indexOf(arr[0])];
-        let theObject = this.roomItems[this.roomItemsAsStrings.indexOf(arr[1])];
+        let theObject = user.inventory[user.inventoryAsString.indexOf(arr[1])];
         theCommand(theObject);
       } 
     } else { //// turn this into a function sayWhat???
