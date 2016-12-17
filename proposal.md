@@ -33,29 +33,32 @@
 
 
 ## Levels of completion
-#### Level -2
+#### ~Level -2~ Achieved 12/16
 - Two rooms
 - Player can move betwen rooms
 - Rooms have walls that can be collided with and entry/exit points
 
 #### Level -1
-- A full "floor" of rooms (5-10)
+- A full "floor" of rooms ~(5-10)~ *25 rooms achieved 12/16*
+- Computer understands text input
 - Addition of objects that can be interacted with and interacted upon
 - ***Win scenario***
 
 #### Level 0
-- Upstairs & downstairs entry points (15-20 rooms)
+- Upstairs & downstairs entry points ~(15-20 rooms)~ *25 rooms achieved 12/16*
+- Addition of sounds
 - Addition of context-specific object actions (i.e. if you're wearing the necklace you don't drown in the basement)
 - ***Loss scenario***
 
-#### Level 1
+
+#### Level ~2~ 1
+- Addition of maze rooms
+- Fairy and Vampire-type monsters
+
+#### Level ~1~ 2 *Realized 12/17 mazes are easier to add than ogres*
 - Addition of ogres to fight... ogres will need their own initial-position and speed. 
 - ***Fight-based loss scenario***
 - Easter egg: keycode combo that will make the monster run at the CPU's speed
-
-#### Level 2
-- Addition of maze rooms
-- Fairy and Vampire-type monsters
 
 #### Level 3
 - Expansion of game - up to 40 rooms
@@ -74,3 +77,4 @@
 - [Passing object as a parameter](http://stackoverflow.com/questions/4743030/passing-object-as-parameter-to-constructor-function-and-copy-its-properties-to-t)
 - [JSFiddle on canvas key motion](http://jsfiddle.net/epistemex/r63Nh/)
 - [JSFiddle on keyup, keydown, keypress](http://jsfiddle.net/zG9MF/2/)
+- [Codepen on blinking cursor](http://codepen.io/ArtemGordinsky/pen/GnLBq)
