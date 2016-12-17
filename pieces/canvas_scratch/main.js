@@ -1,6 +1,6 @@
 /* jshint maxerr: 2000 */
 
-const motionDif = 10;
+const motionDif = 20;
 
 const alph = "abcdefghijklmnopqrstuvwxyz ";
 const alphabetArray = alph.split('');
@@ -43,7 +43,8 @@ class User {
         this.checkCollision(this.x, this.y - 6);
         if (this.collision === 0) this.y -= motionDif;
           else if (this.collision == 2) {
-            user.inventory.push(theRoom.roomItems[0]);
+            user.inventory.push(theRoom.ref.roomItems[0]);
+            theRoom.ref.roomItems.shift();
             this.ctx.clearRect((this.x),(this.y-25),100,100);
           }
         this.collision = 0;
@@ -60,7 +61,8 @@ class User {
         this.checkCollision(this.x - 6, this.y);
         if (this.collision === 0) this.x -= motionDif; 
           else if (this.collision == 2) {
-            user.inventory.push(theRoom.roomItems[0]);
+            user.inventory.push(theRoom.ref.roomItems[0]);
+            theRoom.ref.roomItems.shift();
             this.ctx.clearRect((this.x-25),(this.y),100,100);
           }
         this.collision = 0;
@@ -68,7 +70,8 @@ class User {
         this.checkCollision(this.x + 6, this.y);
         if (this.collision === 0) this.x += motionDif;
            else if (this.collision == 2) {
-            user.inventory.push(theRoom.roomItems[0]);
+            user.inventory.push(theRoom.ref.roomItems[0]);
+            theRoom.ref.roomItems.shift();
             this.ctx.clearRect((this.x+25),(this.y),100,100);
           }
         this.collision = 0;
@@ -112,32 +115,33 @@ class User {
 const gate = {
   name: 'gate',
   look: 'It looks very Strong.',
-  open: ['You don\'t have a key!'],
+  open: 'You don\'t have a key!',
   collide: 'The gate is locked.',
-  fixedLocation: true
+  getit: 'That could be Difficult!',
 };
 
 const courtyardWall = {
   name: 'wall',
   look: `The writing on the wall says "${ user.name } WAS HERE - 1984"... looks like you've been here a while.`,
-  fixedLocation: true,
+  getit: 'That could be Difficult!',
 };
 
 const stonewalls = {
   name: 'wall',
   look: 'The WALLS are made of Gray Stone.',
+  getit: 'That could be Difficult!',
 };
 
 const throne = {
   name: 'throne',
   look: 'The throne is made of stone.',
-  get: 'THRONES are too heavy!',
+  getit: 'THRONES are too heavy!',
 };
 
 const kitchentable = {
   name: 'table',
   look: 'It\'s made of Stone.',
-  get: 'TABLES are too heavy!',
+  getit: 'TABLES are too heavy!',
 };
 
 
@@ -146,7 +150,34 @@ const necklace = {
   x: 450,
   y: 100,
   str: '§',
+  look: 'On the back it says Protection Against Traps.',
+  getit: 'Get it yourself!',
+  gettable: false,
+  wear: 'Okay. I\'m wearing it.',
 };
+
+function look(obj) {
+  tellme.innerHTML = obj.look;
+}
+
+function getit(obj) {
+  if (user.inventory.indexOf(obj) != -1) {
+    tellme.innerHTML = 'You already have it!';
+  } else if (obj.gettable === true) {
+    user.inventory.push(obj);
+    tellme.innerHTML = obj.getit;
+  } else {tellme.innerHTML = 'That could be Difficult!'}
+}
+
+function wear(obj) {
+  if (obj.wearable === true) {
+    user.isWearing.push(obj);
+    tellme.innerHTML = obj.wear;
+  } else { tellme.innerHTML = 'That could be Difficult!' }
+}
+
+let arrayOfCommands = [look, getit, wear];
+let commandsAsStrings = ['look', 'get', 'wear'];
 
 
 ////////// initial room styles (might go in own file?)
@@ -332,7 +363,6 @@ const eastBallroom = {
 const westDining = {
   roomName: 'West Dining',
   wallStyle: square2NorthEastSouth, //// actually this should be square2NorthEastSouth
-  /*connectingRooms: [undefined, centralHall, westBallroom, undefined],*/
   roomDescription: 'You are in the West Dining room. There are 2 door ways to the north, & arch ways to the east & south.',
 };
 
@@ -366,10 +396,10 @@ const kingsDrRoom = {
 };
 
 const queensDrRoom = {
-  room: this,
   roomName: 'Queen\'s Dressing Room',
   wallStyle: smallWest,
   roomItems: [necklace],
+  roomItemsAsStrings: ['necklace'],
   roomDescription: 'You are in the Queen\'s Dressing room. It was once filled with clothes. There is a Staircase in one corner.',
 };
 
@@ -483,6 +513,30 @@ class Room {
   
   inputChecker(arr) {
     console.log(arr);
+    if (arr.length == 1 && arr[0] == 'inventory') {
+      if (user.inventory.length === 0) {
+        tellme.innerHTML = 'You aren\'t carrying anything yet!';
+      } else {
+        let inven = '';
+        for (let i = 0; i < user.inventory.length; i++) {
+          console.log(user.inventory);
+          console.log(user.inventory[i]);
+          inven += `${ user.inventory[i].str } ${ user.inventory[i].name.toUpperCase() } <br/>`;
+        }
+        tellme.innerHTML = `INVENTORY <br/> ${ inven }`;
+      }
+    } else if (arr.length == 2) {
+      if ((commandsAsStrings.indexOf(arr[0]) != -1) && (this.roomItemsAsStrings.indexOf(arr[1]) != -1)) {
+        let theCommand = arrayOfCommands[commandsAsStrings.indexOf(arr[0])];
+        let theObject = this.roomItems[this.roomItemsAsStrings.indexOf(arr[1])];
+        theCommand(theObject);
+      } 
+    } else { //// turn this into a function sayWhat???
+      tellme.innerHTML = 'What???';
+      window.setTimeout(function(){tellme.innerHTML='';}, 100);
+      window.setTimeout(function(){tellme.innerHTML = 'What???'},150);
+      window.setTimeout(function(){tellme.innerHTML='';}, 350);
+    }
   }
   
 
@@ -503,6 +557,7 @@ class CanvasState {
     this.ctx.fillStyle = 'black';
     this.ctx.fillRect(0,0,this.width,this.height);
     output.innerHTML = '';
+    tellme.innerHTML = '';
   }
 }
 

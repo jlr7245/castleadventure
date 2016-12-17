@@ -13,23 +13,13 @@
 
 body {
   font-size: 16px;
-  margin: 20px;
+  margin: 40px;
   background-color: black;
   /*text-align: center;*/
-  color: white;
+  color: #aaa;
   font-family: 'terminal', monospace;
 }
 
-.container {
-  width: 70%;
-  max-width: 1000px;
-  margin: 120px auto;
-  border: 1px solid #ddd;
-  box-sizing:border-box;
-  background-color: white;
-  display:block;
-  padding:40px;
-}
 
 
 /* button & input reset */
@@ -61,7 +51,7 @@ canvas {
   background-color: black;
   border: 3px solid #aaa;
   box-sizing: border-box;
-  padding: 20px;
+  padding: 10px;
   display: inline-block;
 }
 
@@ -89,12 +79,16 @@ canvas {
   margin-right: 15px;
 }
 
+#tellme {
+  margin-top: 250px;
+}
+
 #inputview:after {
   content: '_';
   display: inline-block;
   height: 1em;
   width: 1em;
-  animation: 1s blink step-end infinite;
+  animation: 0.7s blink step-end infinite;
 }
 
 @keyframes blink {
@@ -102,6 +96,6 @@ canvas {
     color: transparent;
   }
   50% {
-    color: white;
+    color: #aaa;
   }
 }
