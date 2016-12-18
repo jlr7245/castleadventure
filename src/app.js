@@ -51,7 +51,7 @@ class User {
           } /// another elseif for colliding w stairs
         this.collision = 0;
       } else if (e.key === 'ArrowDown') {
-        this.checkCollision(this.x, this.y + 6);
+        this.checkCollision(this.x, this.y + 16);
         if (this.collision === 0) this.y += motionDif;
           else if (this.collision == 2) {
             user.inventory.push(theRoom.ref.roomItems[0]);
@@ -75,14 +75,16 @@ class User {
         if (this.collision === 0) this.x += motionDif;
            else if (this.collision == 2) {
             user.inventory.push(theRoom.ref.roomItems[0]);
+            this.ctx.clearRect((theRoom.ref.roomItems[0].x - 300),(theRoom.ref.roomItems[0].y - 200),400,400);
+            theRoom.drawWalls();
             user.inventoryAsString.push(theRoom.ref.roomItems[0].name);
             theRoom.ref.roomItems.shift();
-            this.ctx.clearRect((this.x+25),(this.y),100,100);
           } /// another elseif for colliding w stairs
         this.collision = 0;
       }
     this.clear(this.prevX, this.prevY);
     this.draw(this.x, this.y, this.ctx);
+    this.collision = 0;
     if (this.y - 5 <= 0) { //// top 
       init(theRoom.connectingRooms[0], this.x, 550);
     } else if (this.x + 5 >= 780) { //// right
@@ -99,7 +101,7 @@ class User {
   }
   
   checkCollision(x, y) {
-    var imgd = this.ctx.getImageData(x, y, 30, 30);
+    var imgd = this.ctx.getImageData(x, y, 20, 20);
     var pix = imgd.data;
     for (let i = 0; i < pix.length; i++) {
       if (pix[i] === 204) {
@@ -186,20 +188,20 @@ class Room {
         }
         tellme.innerHTML = `- Inventory - <br/> ${ inven }`;
       }
-    } else if (arr.length == 2) {
-      if ((commandsAsStrings.indexOf(arr[0]) != -1) && (user.inventoryAsString.indexOf(arr[1])  != -1)) {
+    } else if (arr.length == 2 && (commandsAsStrings.indexOf(arr[0]) != -1) /*&& (commandableObjectsAsStrings.indexOf(arr[1])  != -1) */) {
         let theCommand = arrayOfCommands[commandsAsStrings.indexOf(arr[0])];
-        let theObject = user.inventory[user.inventoryAsString.indexOf(arr[1])];
-        theCommand(theObject);
-      } 
-    } else { //// turn this into a function sayWhat???
-      tellme.innerHTML = 'What???';
-      window.setTimeout(function(){tellme.innerHTML='';}, 100);
-      window.setTimeout(function(){tellme.innerHTML = 'What???'},150);
-      window.setTimeout(function(){tellme.innerHTML='';}, 350);
-    }
+        let theObject = commandableObjects[commandableObjectsAsStrings.indexOf(arr[1])];
+        theCommand(theObject, arr[1]);
+    } else this.sayWhat();
   }
   
+  sayWhat() {
+    // play the what sound
+    tellme.innerHTML = 'What???';
+    window.setTimeout(function(){tellme.innerHTML='';}, 100);
+    window.setTimeout(function(){tellme.innerHTML = 'What???'},150);
+    window.setTimeout(function(){tellme.innerHTML='';}, 350);
+  }
 
 }
 
@@ -248,7 +250,7 @@ function init(room, x, y) {
 
 //// WINDOW ONLOAD ///
 window.onload = function() {
-  init(queensDrRoom, 200, 100);
+  init(eastDining, 200, 100);
   window.addEventListener('keyup', e => theRoom.typeInput(e));
   window.addEventListener('keydown', e => player.move(e));
 };

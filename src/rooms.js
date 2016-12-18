@@ -146,6 +146,7 @@ const centralHall = {
 const welcomeHall = {
   roomName: 'Welcome Hall',
   wallStyle: square,
+  lookableAttributes: [stonewalls],
   roomDescription: 'You are in The Welcome Hall. This room was used to welcome guests. There are large archways in all four walls.',
 };
 
@@ -163,7 +164,7 @@ const castleCourtyard = {
   roomDescription: 'You are in the Castle Courtyard. To the north is a large Doorway. To the south is a large Gate.',
   roomMonsters: [],
   roomItems: [],
-  lookableAttributes: [gate, courtyardWall],
+  lookableAttributes: [gate, courtyardWall, stonewalls],
   wallStyle: courtyard,
 };
 
@@ -171,6 +172,7 @@ const westBallroom = {
   roomName: 'West Ballroom',
   wallStyle: squareNorthAndEast, 
   staircaseExit: [],
+  lookableAttributes: [stonewalls],
   hasMonster: true,
   roomDescription: 'You are in The West Ballroom. There are arch ways to the north & east; a spiral staircase in one corner.',
 };
@@ -178,12 +180,14 @@ const westBallroom = {
 const eastBallroom = {
   roomName: 'East Ballroom',
   wallStyle: squareNorthAndWest, 
+  lookableAttributes: [stonewalls],
   roomDescription: 'You are in The East Ballroom. There are arch ways to the north & west; a spiral staircase in one corner.',
 };
 
 const westDining = {
   roomName: 'West Dining',
   wallStyle: square2NorthEastSouth, //// actually this should be square2NorthEastSouth
+  lookableAttributes: [stonewalls],
   roomDescription: 'You are in the West Dining room. There are 2 door ways to the north, & arch ways to the east & south.',
 };
 
@@ -191,13 +195,16 @@ const eastDining = {
   roomName: 'East Dining',
   wallStyle: squareLargeEast, //// actually should be squareLargeEast
   /*connectingRooms: [undefined, undefined, eastBallroom, centralHall],*/
+  lookableAttributes: [stonewalls],
   roomDescription: 'You are in the East Dining room. The large opening to the east leads to the garden patio.',
+  roomItems: [eyeglasses],
 };
 
 const anteRoom = {
   roomName: 'Ante Room',
   wallStyle: annex,
   roomDescription: 'You are in the Ante Room. Here People waited for an audience with the King. It was once lined with benches.',
+  lookableAttributes: [stonewalls],
   /*connectingRooms: [undefined, undefined, centralHall, undefined],*/
 };
 
@@ -208,12 +215,15 @@ const throneRoom = {
   roomMonsters: [],
   roomItems: [],
   addlAttr: [throne],
+  lookableAttributes: [stonewalls, throne],
 };
 
 const kingsDrRoom = {
   roomName: 'King\'s Dressing Room',
   wallStyle: smallEast,
-  roomDescription: 'You are In the Kings Dressing room. It was Once Filled with clothes. There is a Staircase in one corner.'
+  roomDescription: 'You are In the Kings Dressing room. It was Once Filled with clothes. There is a Staircase in one corner.',
+  lookableAttributes: [stonewalls],
+  roomItems: [book],
 };
 
 const queensDrRoom = {
@@ -221,6 +231,7 @@ const queensDrRoom = {
   wallStyle: smallWest,
   roomItems: [necklace],
   roomDescription: 'You are in the Queen\'s Dressing room. It was once filled with clothes. There is a Staircase in one corner.',
+  lookableAttributes: [stonewalls],
 };
 
 const kitchen = {
@@ -228,6 +239,7 @@ const kitchen = {
   wallStyle: kitchenwalls,
   roomDescription: 'You are in The Kitchen. In the Center is a large stone table.',
   addlAttr: [kitchentable],
+  lookableAttributes: [stonewalls],
 };
 
 const chefsQuarters = {
@@ -235,12 +247,14 @@ const chefsQuarters = {
   wallStyle: guestroomWest,
   roomDescription: 'You are in The Chef\'s Quarters. There is a small desk & a Bed here.',
   addlAttr: [], /// desk & bed. there's a wine flask on the desk.
+  lookableAttributes: [stonewalls],
 };
 
 const storageroom = {
   name: 'Storage Room',
   wallStyle: storagewalls,
   roomDescription: 'You are in the Storage room. There are Two large shelves in the middle, and a Small Staircase in one corner.',
+  lookableAttributes: [stonewalls],
   
 };
 
@@ -248,18 +262,21 @@ const gardenBottom = {
   name: 'South Garden',
   wallStyle: gardenBottomWalls,
   roomDescription: 'You are in The South end of The Castle garden. In the center is a fountain.',
+  lookableAttributes: [stonewalls],
 };
 
 const gardenTop = {
   name: 'North Garden',
   wallStyle: gardenTopWalls,
   roomDescription: 'You are In The North end of the Castle Garden. It is overgrown with bushes.',
+  lookableAttributes: [stonewalls],
 };
 
 const castleMuseum = {
   name: 'Castle Museum',
   wallStyle: castleMuseumWalls,
   roomDescription: 'You are in The Castle Museum. This room was once decorated with many artifacts.',
+  lookableAttributes: [stonewalls],
 };
 
 /// setting connecting rooms
