@@ -47,22 +47,23 @@
 #### Level 0
 - ~~Upstairs & downstairs entry points (15-20 rooms) *25 rooms achieved 12/16*~~
 - ~~Addition of sounds~~
-- Addition of context-specific object actions (i.e. if you're wearing the necklace you don't drown in the basement)
-- ***Loss scenario***
-- Win screen
-- Instructions screen
-- Loss screen
-- Entry screen
+- ~~Addition of context-specific object actions (i.e. if you're wearing the necklace you don't drown in the basement)~~
+- ~~***Loss scenario***~~
+- ~~Win screen~~
+- ~~Instructions screen~~
+- ~~Loss screen~~
+- ~~Entry screen~~
 
 
-#### Level ~~2~~ 1
+#### Level 1
+- Addition of "room flavor" - i.e. throne, bushes, shelves, etc.
 - Addition of maze rooms
 - Fairy and Vampire-type monsters
 
-#### Level ~~1~~ 2 *Realized 12/17 mazes are easier to add than ogres*
+#### Level 2 *Realized 12/17 mazes are easier to add than ogres*
 - Addition of ogres to fight... ogres will need their own initial-position and speed. 
 - ***Fight-based loss scenario***
-- Easter egg: keycode combo that will make the monster run at the CPU's speed
+- Easter egg: keycode combo that will make the game emulate the original game's 
 
 #### Level 3
 - Expansion of game - up to 40 rooms

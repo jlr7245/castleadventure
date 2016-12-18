@@ -146,7 +146,6 @@ class User {
   }
   
   springTheTrap(trap, ctx) {
-    console.log('its a trap!');
     if ((this.x <= this.trap.userX) && (user.isWearing.indexOf(necklace) == -1)) {
       tellme.innerHTML = `You have sprung a Trap!!! The room has filled with water and you drowned!`;
       ctx.fillStyle = '#cccccc';
@@ -214,6 +213,11 @@ class Room {
       } 
     } 
   }
+    
+  /// ROOM DESCRIPTION ///
+  writeDescrip() {
+    desc.innerHTML = this.roomDescription;
+  }
   
   //// USER INPUT ///
   typeInput(e) {
@@ -231,13 +235,7 @@ class Room {
       str = '';
     }
   }
-  
-  /// ROOM DESCRIPTION ///
-  writeDescrip() {
-    desc.innerHTML = this.roomDescription;
-  }
-  
-  
+
   //// INPUT UNDERSTANDING LOGIC ///
   inputChecker(arr) {
     console.log(arr);
