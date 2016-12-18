@@ -83,3 +83,5 @@ While the game as it currently is accomplishes the goals I wished to accomplish,
 <dt>Author</dt>
 <dd>J Silverstein</dd>
 <dt>Credits</dt>
+<dd></dd>
+</dl>
