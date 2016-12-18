@@ -1,6 +1,6 @@
 console.log('Here is the app itself!');
 
-const motionDif = 20;
+const motionDif = 15;
 
 const alph = "abcdefghijklmnopqrstuvwxyz ";
 const alphabetArray = alph.split('');
