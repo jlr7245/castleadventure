@@ -120,14 +120,12 @@ class User {
         getSound.play();
         break;
       } else if (pix[i] === 1) { ////// stairs stuff begins
-        ///this.collision = 3;
         console.log('tryin to go down some stairs');
-        init(theRoom.connectingRooms[4], this.x, this.y);
+        init(theRoom.connectingRooms[4], this.x + 15, this.y + 15);
         break;
       } else if (pix[i] === 2) {
-        ///this.collision = 4;
         console.log('tryin to go up some stairs');
-        init(theRoom.connectingRooms[5], this.x, this.y);
+        init(theRoom.connectingRooms[5], this.x + 15, this.y + 15);
         break;
       }
     }
