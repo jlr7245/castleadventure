@@ -9,6 +9,14 @@ const user = {
   isWearing: [],
 };
 
+function printItems() {
+  let iHave = '';
+  for (let i = 0; i < user.inventory.length; i++) {
+    iHave += `${user.inventory[i].str} \t`;
+  }
+  return iHave;
+}
+
 
 ///// ADDITIONAL ATTRIBUTES
 
@@ -105,6 +113,7 @@ const scepter = {
   carriable: true,
   wearable: false,
   waveable: true,
+  wave: 'The Gate opens by itself!',
 };
 
 const helmet = {
@@ -206,8 +215,10 @@ function wave(obj, str) {
   if (commandableObjectsAsStrings.indexOf(str) == -1) {
     theRoom.sayWhat();
   } else if ((user.inventory.indexOf(obj) !== -1) && (obj.waveable === true)) {
-    tellme.innerHTML = obj.wave;
-    //// something contextual here
+    if (((theRoom.ref == castleCourtyard) && (obj == scepter)) || ((theRoom.ref == westBallroom) && (obj == wand))) {
+    tellme.innerHTML = `As you wave the ${ obj.name }... <br/><br/> ${obj.wave}`;
+    theRoom.openWall();
+    } else tellme.innerHTML = `As you wave the ${ obj.name }... <br/><br/> Nothing Happens!`;
   } else if ((user.inventory.indexOf(obj) !== -1) && (obj.waveable === false)) tellme.innerHTML = `You look awful Silly waving that ${ str.toUpperCase() }!`;
     else tellme.innerHTML = 'You don\'t have it!';
 }

@@ -38,8 +38,10 @@ class User {
   }
 
   draw(x, y, ctx) {
+    //if (theRoom.hasOwnProperty('info') === false) { /// got a scope problem ... probably p easy to fix but it's the 11th hour
     ctx.fillStyle = 'white';
     ctx.fillRect(x,y,20,20);
+    //}
   }
   
   move(e) {
@@ -120,10 +122,13 @@ class User {
         getSound.play();
         break;
       } else if (pix[i] === 1) { ////// stairs stuff begins
+        this.collision = 3;
         console.log('tryin to go down some stairs');
-        init(theRoom.connectingRooms[4], this.x + 15, this.y + 15);
+        if ((theRoom.connectingRooms[4].floor === 0) && (user.inventory.indexOf(lamp) == -1)) tellme.innerHTML = `It's too dark to go that way!`;
+        else init(theRoom.connectingRooms[4], this.x + 15, this.y + 15);
         break;
-      } else if (pix[i] === 2) {
+      } else if (pix[i] === 3) {
+        this.collision = 4;
         console.log('tryin to go up some stairs');
         init(theRoom.connectingRooms[5], this.x + 15, this.y + 15);
         break;
@@ -146,6 +151,7 @@ class Room {
     this.drawItems();
     this.writeDescrip();
     this.drawStairs(this.ctx);
+    this.writeInfo();
   } /// end of constructor
   
  //// SETTING UP TO DRAW WALLS /// 
@@ -167,7 +173,7 @@ class Room {
           ctx.fillStyle = '#ffffff';
           ctx.fillText ('D', stair.x, stair.y + 25);
         } else if (stair.direction === 1 ) {
-          ctx.fillStyle = '#020202';
+          ctx.fillStyle = '#030303';
           ctx.fillRect(stair.x, stair.y, 30, 30);
           ctx.font = '30px terminal';
           ctx.fillStyle = '#ffffff';
@@ -184,7 +190,7 @@ class Room {
         this.ctx.font = "20px terminal";
         this.ctx.fillStyle = "#bbbbbb";
         this.ctx.fillText(item.str, item.x, item.y);
-        output.innerHTML = ` ${ item.str } ${ item.name.toUpperCase() }`;
+        output.innerHTML += ` ${ item.str } ${ item.name.toUpperCase() } <br/>`;
       } 
     } 
   }
@@ -241,8 +247,27 @@ class Room {
     window.setTimeout(function(){tellme.innerHTML = 'What???'},150);
     window.setTimeout(function(){tellme.innerHTML='';}, 350);
   }
-
-}
+  
+  //// OPEN WALL ///
+  openWall() {
+    this.ctx.fillStyle = '#000000';
+    this.ctx.fillRect(290, 554, 200, 36);
+  }
+  
+  ///// INFO ////
+  writeInfo() {
+    if (this.hasOwnProperty('info') === true) {
+      this.ctx.font = "20px terminal";
+      this.ctx.fillStyle = "#bbbbbb";
+      for (let i = 0; i < this.info.length; i++) {
+        this.ctx.fillText(this.info[i], 50, 50 * (i + 2)); 
+      }
+    } else console.log('Not an info room!');
+  }
+  
+  
+  
+} ///// END OF ROOM CONSTRUCTOR
 
 
 //// CANVAS STATE CLASS ///
@@ -289,7 +314,7 @@ function init(room, x, y) {
 
 //// WINDOW ONLOAD ///
 window.onload = function() {
-  init(storageroom, 200, 200);
+  init(castleCourtyard, 200, 200);
   window.addEventListener('keyup', e => theRoom.typeInput(e));
   window.addEventListener('keydown', e => player.move(e));
 };

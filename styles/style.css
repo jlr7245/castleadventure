@@ -48,7 +48,7 @@ button:focus, input:focus {
 }
 
 canvas {
-  background-color: black;
+  /*background-color: black; */
   border: 3px solid #aaa;
   box-sizing: border-box;
   padding: 10px;

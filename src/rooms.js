@@ -136,11 +136,26 @@ class Wall {
 
 /// 780 x 590 // 1280 x 800 // x 330, y 235, w 120, h 220
 
+
+//// INFORMATIVE SCREENS (really these should be their own class but I'm pretty short on time)
+
+const win = {
+  roomName: 'win',
+  wallStyle: [],
+  info: [`You've Escaped the Castle!`, 
+/*  `You have collected these Treasures...`,
+  `${ printItems() }`,
+  `I'm sure you'll kill a few monsters when they're added to the game...`,
+  `And I'm sure you'll have a score when a scoring system is added!`,*/ //// i will add these back in later, I didn't have time to figure out wrapping
+  `- Press any key - `,],
+  roomDescription: '',
+};
+
 //// ROOM OBJECTS
 const centralHall = {
   roomName: 'Central Hall',
   wallStyle: square,
-   roomDescription: 'You are in The Central Hall. Exits are in all directions. There is a large spiral staircase in the middle.',
+  roomDescription: 'You are in The Central Hall. Exits are in all directions. There is a large spiral staircase in the middle.',
 };
 
 const welcomeHall = {
@@ -162,8 +177,7 @@ const castleCourtyard = {
   roomName: 'Castle Courtyard',
   roomOrder: 1,
   roomDescription: 'You are in the Castle Courtyard. To the north is a large Doorway. To the south is a large Gate.',
-  roomMonsters: [],
-  roomItems: [],
+  roomItems: [scepter, lamp],
   lookableAttributes: [gate, courtyardWall, stonewalls],
   wallStyle: courtyard,
 };
@@ -295,7 +309,7 @@ const wineCellar = {
   stairs: [
     {direction: 1, x: 100, y: 150},
     ],
-  floor: 2,
+  floor: 0,
 };
 
 
@@ -308,7 +322,7 @@ const wineCellar = {
 centralHall.connectingRooms = [anteRoom, eastDining, welcomeHall, westDining];
 welcomeHall.connectingRooms = [centralHall, eastBallroom, entranceRoom, westBallroom];
 entranceRoom.connectingRooms = [welcomeHall, undefined, castleCourtyard, undefined];
-castleCourtyard.connectingRooms = [entranceRoom, undefined, undefined, undefined];
+castleCourtyard.connectingRooms = [entranceRoom, undefined, win, undefined];
 westBallroom.connectingRooms = [westDining, welcomeHall, undefined, undefined];
 eastBallroom.connectingRooms = [eastDining, undefined, undefined, welcomeHall];
 westDining.connectingRooms = [kitchen, centralHall, westBallroom, undefined];
