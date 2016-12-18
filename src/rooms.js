@@ -117,7 +117,7 @@ const castleMuseumWalls = [
   ];
   
   
-////// SECOND LEVEL
+////// BASEMENT LEVEL
 const winecellarWalls = [
   [0, 0, 400, 35],
   [400, 0, 35, 400],

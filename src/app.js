@@ -285,7 +285,7 @@ class Room {
   }
   
   ///// [admiral akbar voice] IT'S A TRAP!! /////
-  itsATrap(ctx) {
+  itsATrap() {
     if (this.ref.hasOwnProperty('trap')) {
       player.trap = this.ref.trap;
       player.checkthetrap = true;
