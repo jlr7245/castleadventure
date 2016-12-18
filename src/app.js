@@ -13,15 +13,6 @@ const splashSound = new Audio('sounds/theme.ogg');
 const harpSound = new Audio('sounds/harp.ogg');
 const winSound = new Audio('sounds/win.ogg');
 
-/*const user = {
-  name: 'Hello',
-  inventory: [],
-  inventoryAsString: [],
-  fightPoints: 30,
-  isWearing: [],
-};*/
-
-
 
 class User {
   constructor(user, x, y, ctx) {
@@ -163,7 +154,7 @@ class Room {
   constructor(canv, room, player) {
     for (let key in canv) { this[key] = canv[key]; }
     for (let attr in room) { this[attr] = room[attr]; } // looping through object passed
-    this.ref = room;
+    this.ref = room; // need the room object in rooms.js to be accessible by this class and the User class in order to pick up objects
     this.drawWalls();
     this.player = player;
     this.drawItems();
