@@ -257,7 +257,10 @@ const storageroom = {
   wallStyle: storagewalls,
   roomDescription: 'You are in the Storage room. There are Two large shelves in the middle, and a Small Staircase in one corner.',
   lookableAttributes: [stonewalls],
-  
+  stairs: [
+    {direction: 0, x: 100, y: 150}
+    ],
+    floor: 1,
 };
 
 const gardenBottom = {
@@ -283,7 +286,25 @@ const castleMuseum = {
   roomItems: [sword],
 };
 
+
+//// level 2
+const wineCellar = {
+  name: 'Royal Wine Cellar',
+  wallStyle: courtyard,
+  roomDescription: 'You are in the Royal Wine Cellar. It is filled with many Barrels. At one end is a Large metal Door.',
+  stairs: [
+    {direction: 1, x: 100, y: 150},
+    ],
+  floor: 2,
+};
+
+
+
+
 /// setting connecting rooms
+
+
+//// level 1
 centralHall.connectingRooms = [anteRoom, eastDining, welcomeHall, westDining];
 welcomeHall.connectingRooms = [centralHall, eastBallroom, entranceRoom, westBallroom];
 entranceRoom.connectingRooms = [welcomeHall, undefined, castleCourtyard, undefined];
@@ -298,10 +319,14 @@ kingsDrRoom.connectingRooms = [undefined, throneRoom, undefined, undefined];
 queensDrRoom.connectingRooms = [undefined, undefined, undefined, throneRoom];
 kitchen.connectingRooms = [storageroom, chefsQuarters, westDining, undefined];
 chefsQuarters.connectingRooms = [undefined, undefined, undefined, kitchen];
-storageroom.connectingRooms = [undefined, undefined, kitchen, undefined];
+storageroom.connectingRooms = [undefined, undefined, kitchen, undefined, wineCellar, undefined];
 gardenBottom.connectingRooms = [gardenTop, undefined, undefined, eastDining];
 gardenTop.connectingRooms = [undefined, undefined, gardenBottom, castleMuseum];
 castleMuseum.connectingRooms = [undefined, gardenTop, eastDining, undefined];
+
+
+//// level 2
+wineCellar.connectingRooms = [undefined, undefined, undefined, undefined, undefined, storageroom];
 
 
 

@@ -45,7 +45,7 @@
 - ***Win scenario***
 
 #### Level 0
-- Upstairs & downstairs entry points ~~(15-20 rooms)~~ *25 rooms achieved 12/16*
+- ~~Upstairs & downstairs entry points (15-20 rooms) *25 rooms achieved 12/16*~~
 - ~~Addition of sounds~~
 - Addition of context-specific object actions (i.e. if you're wearing the necklace you don't drown in the basement)
 - ***Loss scenario***

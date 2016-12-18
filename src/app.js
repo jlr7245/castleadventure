@@ -119,6 +119,16 @@ class User {
         console.log('oooh, theres something here');
         getSound.play();
         break;
+      } else if (pix[i] === 1) { ////// stairs stuff begins
+        ///this.collision = 3;
+        console.log('tryin to go down some stairs');
+        init(theRoom.connectingRooms[4], this.x, this.y);
+        break;
+      } else if (pix[i] === 2) {
+        ///this.collision = 4;
+        console.log('tryin to go up some stairs');
+        init(theRoom.connectingRooms[5], this.x, this.y);
+        break;
       }
     }
   }
@@ -137,6 +147,7 @@ class Room {
     this.player = player;
     this.drawItems();
     this.writeDescrip();
+    this.drawStairs(this.ctx);
   } /// end of constructor
   
  //// SETTING UP TO DRAW WALLS /// 
@@ -145,6 +156,27 @@ class Room {
       let drawIt = new Wall(wall);
       drawIt.draw(this.ctx);
     }
+  }
+  
+  /// DRAWING STAIRS //
+  drawStairs(ctx) {
+    if (this.hasOwnProperty('stairs')) {
+      for (let stair of this.stairs) {
+        if (stair.direction === 0) {
+          ctx.fillStyle = '#010101';
+          ctx.fillRect(stair.x, stair.y, 30, 30);
+          ctx.font = '30px terminal';
+          ctx.fillStyle = '#ffffff';
+          ctx.fillText ('D', stair.x, stair.y + 25);
+        } else if (stair.direction === 1 ) {
+          ctx.fillStyle = '#020202';
+          ctx.fillRect(stair.x, stair.y, 30, 30);
+          ctx.font = '30px terminal';
+          ctx.fillStyle = '#ffffff';
+          ctx.fillText ('U', stair.x, stair.y + 25);
+        }
+      }
+    } else console.log('no stairs in this room!');
   }
   
   //// DRAWING ITEMS ///
@@ -195,13 +227,15 @@ class Room {
         }
         tellme.innerHTML = `- Inventory - <br/> ${ inven }`;
       }
-    } else if (arr.length == 2 && (commandsAsStrings.indexOf(arr[0]) != -1) /*&& (commandableObjectsAsStrings.indexOf(arr[1])  != -1) */) {
+    } else if ((arr.length == 2) && (commandsAsStrings.indexOf(arr[0]) != -1) /*&& (commandableObjectsAsStrings.indexOf(arr[1])  != -1) */) {
         let theCommand = arrayOfCommands[commandsAsStrings.indexOf(arr[0])];
         let theObject = commandableObjects[commandableObjectsAsStrings.indexOf(arr[1])];
         theCommand(theObject, arr[1]);
     } else this.sayWhat();
   }
   
+  
+  //// WHAT ////
   sayWhat() {
     whatSound.play();
     tellme.innerHTML = 'What???';
@@ -257,7 +291,7 @@ function init(room, x, y) {
 
 //// WINDOW ONLOAD ///
 window.onload = function() {
-  init(eastDining, 200, 100);
+  init(storageroom, 200, 200);
   window.addEventListener('keyup', e => theRoom.typeInput(e));
   window.addEventListener('keydown', e => player.move(e));
 };
