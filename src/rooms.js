@@ -116,6 +116,30 @@ const castleMuseumWalls = [
   [220, 515, 105, 35], [450, 515, 300, 35], [290, 525, 35, 65], [450, 525, 35, 65]
   ];
   
+  
+////// SECOND LEVEL
+const winecellarWalls = [
+  [0, 0, 400, 35],
+  [400, 0, 35, 400],
+  [0, 0, 35, 400],
+  [0, 400, 150, 35], [250, 400, 185, 35], /// south
+  [150, 400, 35, 200], [250, 400, 35, 200], /// to next room
+  ];
+  
+  
+const longPassage = [
+  [150, 0, 35, 590],
+  [250, 0, 35, 590],
+  ];
+  
+const windingwalls = [
+  [150, 0, 35, 225], [250, 0, 35, 160], /// connecting
+  [250, 125, 365, 35], [580, 125, 35, 95], [580, 195, 190, 35], /// top
+  [740, 195, 35, 290], [400, 450, 340, 35], /// east wall
+  [400, 325, 35, 160], [0, 225, 510, 35], [0, 325, 415, 35], /// west exit
+  [475, 225, 35, 160], [500, 290, 165, 95] /// middle
+  ];
+  
 
 /// WALL CONSTRUCTOR 
 class Wall { 
@@ -148,6 +172,13 @@ const win = {
   `I'm sure you'll kill a few monsters when they're added to the game...`,
   `And I'm sure you'll have a score when a scoring system is added!`,*/ //// i will add these back in later, I didn't have time to figure out wrapping
   `- Press any key - `,],
+  roomDescription: '',
+};
+
+const death = {
+  roomName: 'death',
+  wallStyle: [],
+  info: [`You're have failed to Escape!`, `- Press any key -`],
   roomDescription: '',
 };
 
@@ -301,10 +332,10 @@ const castleMuseum = {
 };
 
 
-//// level 2
+//// level 0
 const wineCellar = {
   name: 'Royal Wine Cellar',
-  wallStyle: courtyard,
+  wallStyle: winecellarWalls,
   roomDescription: 'You are in the Royal Wine Cellar. It is filled with many Barrels. At one end is a Large metal Door.',
   stairs: [
     {direction: 1, x: 100, y: 150},
@@ -312,6 +343,26 @@ const wineCellar = {
   floor: 0,
 };
 
+const basementPassage = {
+  name: 'passageway',
+  wallStyle: longPassage,
+  roomDescription: 'You are in a long Passageway.',
+  floor: 0,
+};
+
+const firstWindingPassage = {
+  name: 'Winding Passage',
+  wallStyle: windingwalls,
+  roomDescription: 'You are in a Winding Passage.',
+  floor: 0,
+  trap: {
+    userX: 100,
+    x: 0,
+    y: 225,
+    w: 415,
+    h: 130,
+  }
+};
 
 
 
@@ -340,7 +391,8 @@ castleMuseum.connectingRooms = [undefined, gardenTop, eastDining, undefined];
 
 
 //// level 2
-wineCellar.connectingRooms = [undefined, undefined, undefined, undefined, undefined, storageroom];
-
+wineCellar.connectingRooms = [undefined, undefined, basementPassage, undefined, undefined, storageroom];
+basementPassage.connectingRooms = [wineCellar, undefined, firstWindingPassage, undefined, undefined, undefined];
+firstWindingPassage.connectingRooms = [firstWindingPassage, undefined, undefined, undefined, undefined, undefined];
 
 

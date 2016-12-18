@@ -29,6 +29,7 @@ class User {
     this.y = y;
     this.prevX;
     this.prevX;
+    this.checkthetrap = false;
     this.ctx = ctx;
     this.collision = 0;
     this.draw(this.initialX, this.initialY, this.ctx);
@@ -69,7 +70,12 @@ class User {
         this.collision = 0;
       } else if (e.key === 'ArrowLeft') {
         this.checkCollision(this.x - 6, this.y);
-        if (this.collision === 0) this.x -= motionDif; 
+        if (this.collision === 0) {
+          this.x -= motionDif; 
+          if (this.checkthetrap === true) {
+            this.springTheTrap(this.trap, this.ctx);
+          }
+        }
           else if (this.collision == 2) {
             user.inventory.push(theRoom.ref.roomItems[0]);
             user.inventoryAsString.push(theRoom.ref.roomItems[0].name);
@@ -136,6 +142,16 @@ class User {
     }
   }
   
+  springTheTrap(trap, ctx) {
+    console.log('its a trap!');
+    if ((this.x <= this.trap.userX) && (user.isWearing.indexOf(necklace) == -1)) {
+      tellme.innerHTML = `You have sprung a Trap!!! The room has filled with water and you drowned!`;
+      ctx.fillStyle = '#cccccc';
+      ctx.fillRect(this.trap.x, this.trap.y, this.trap.w, this.trap.h);
+      window.setTimeout(function(){init(death, 200, 200)}, 2000);
+    }
+  }
+  
 }
 
 
@@ -152,6 +168,7 @@ class Room {
     this.writeDescrip();
     this.drawStairs(this.ctx);
     this.writeInfo();
+    this.itsATrap(this.ctx);
   } /// end of constructor
   
  //// SETTING UP TO DRAW WALLS /// 
@@ -197,7 +214,9 @@ class Room {
   
   //// USER INPUT ///
   typeInput(e) {
-    if (alphabetArray.indexOf(e.key) != -1) {
+    if (this.ref.hasOwnProperty('info')) {
+      init(castleCourtyard, 200, 200);
+    } else if (alphabetArray.indexOf(e.key) != -1) {
       str += e.key;
       input.innerHTML = str.toUpperCase();
     } else if (e.keyCode == 8) {
@@ -265,6 +284,13 @@ class Room {
     } else console.log('Not an info room!');
   }
   
+  ///// [admiral akbar voice] IT'S A TRAP!! /////
+  itsATrap(ctx) {
+    if (this.ref.hasOwnProperty('trap')) {
+      player.trap = this.ref.trap;
+      player.checkthetrap = true;
+    } else console.log('Phew, safe for another day');
+  }
   
   
 } ///// END OF ROOM CONSTRUCTOR
@@ -314,7 +340,7 @@ function init(room, x, y) {
 
 //// WINDOW ONLOAD ///
 window.onload = function() {
-  init(castleCourtyard, 200, 200);
+  init(firstWindingPassage, 200, 200);
   window.addEventListener('keyup', e => theRoom.typeInput(e));
   window.addEventListener('keydown', e => player.move(e));
 };
