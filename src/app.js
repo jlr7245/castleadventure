@@ -9,6 +9,9 @@ const dropSound = new Audio('sounds/drop.mp3');
 const whatSound = new Audio('sounds/what.mp3');
 const getSound = new Audio('sounds/get.mp3');
 const collideSound = new Audio('sounds/collision.mp3');
+const splashSound = new Audio('sounds/theme.ogg');
+const harpSound = new Audio('sounds/harp.ogg');
+const winSound = new Audio('sounds/win.ogg');
 
 /*const user = {
   name: 'Hello',
@@ -148,7 +151,7 @@ class User {
       tellme.innerHTML = `You have sprung a Trap!!! The room has filled with water and you drowned!`;
       ctx.fillStyle = '#cccccc';
       ctx.fillRect(this.trap.x, this.trap.y, this.trap.w, this.trap.h);
-      window.setTimeout(function(){init(death, 200, 200)}, 2000);
+      window.setTimeout(function(){init(death)}, 2000);
     }
   }
   
@@ -276,10 +279,10 @@ class Room {
   ///// INFO ////
   writeInfo() {
     if (this.hasOwnProperty('info') === true) {
-      this.ctx.font = "20px terminal";
+      this.ctx.font = "20px terminal, monospace";
       this.ctx.fillStyle = "#bbbbbb";
       for (let i = 0; i < this.info.length; i++) {
-        this.ctx.fillText(this.info[i], 50, 50 * (i + 2)); 
+        this.ctx.fillText(this.info[i], 0, 20 * (i + 3)); 
       }
     } else console.log('Not an info room!');
   }
@@ -340,7 +343,9 @@ function init(room, x, y) {
 
 //// WINDOW ONLOAD ///
 window.onload = function() {
-  init(firstWindingPassage, 200, 200);
+  init(splash);
+  splashSound.play();
+  window.setTimeout(function(){init(intro)}, 7000);
   window.addEventListener('keyup', e => theRoom.typeInput(e));
   window.addEventListener('keydown', e => player.move(e));
 };

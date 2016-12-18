@@ -60,11 +60,12 @@ const kitchentable = {
 };
 
 /// DRAWN ITEMS
+//// I realized instead of having all these "waveable" and "carriable" attributes i could have just done `if (obj.hasOwnProperty('whatever') === true) {}`.... after I wrote all the functions..... it's at the very top of my list of things to clean up over the break.
 
 const necklace = {
   name: 'necklace',
   x: 450,
-  y: 100,
+  y: 200,
   str: '§',
   look: 'On the back it says Protection Against Traps.',
   getit: 'Get it yourself!',
@@ -105,7 +106,6 @@ const eyeglasses = {
 
 const scepter = {
   name: 'scepter',
-  x: 300,
   y: 200,
   str: 'ß',
   look: 'It looks Expensive!',
@@ -227,10 +227,9 @@ function read(obj, str) {
   if ((obj == book) && (user.inventory.indexOf(obj) !== -1) && (user.isWearing.indexOf(eyeglasses) !== -1)) tellme.innerHTML = 'The book reads: <br/> Wave Scepter';
   else if ((obj == book) && (user.inventory.indexOf(obj) !== -1)) tellme.innerHTML = 'You can\'t see well enough. It\'s all Blurry.';
   else tellme.innerHTML = `You can't read That!`;
-  
 }
 
-function rub(obj, str) {
+function rub(obj, str) { 
   if ((obj == lamp) && (user.inventory.indexOf(obj) !== -1)) {
     tellme.innerHTML = `There's no Genii in this Lamp!`;
   } else if (user.inventory.indexOf(obj) !== -1) {

@@ -140,6 +140,23 @@ const windingwalls = [
   [475, 225, 35, 160], [500, 290, 165, 95] /// middle
   ];
   
+const scepterroom = [
+  [700, 225, 95, 35], [700, 325, 95, 35], /// east exit
+  [250, 100, 450, 35], [250, 400, 450, 35], /// top & bottom
+  [700, 100, 35, 130], [700, 325, 35, 110], // east walls
+  [250, 100, 35, 300], /// west wall
+  ];
+  
+  
+///// assorted other things
+const thecastle = [
+  [80, 100, 135, 20], [100, 120, 100, 100], // top left
+  [135, 160, 490, 270], // middle
+  [545, 100, 135, 20], [565, 120, 100, 100], //// top right
+  [80, 80, 20, 20], [118, 80, 20, 20], [156, 80, 20, 20], [195, 80, 20, 20], /// top things
+  [545, 80, 20, 20], [583, 80, 20, 20], [623, 80, 20, 20], [660, 80, 20, 20], /// top things
+  ];
+  
 
 /// WALL CONSTRUCTOR 
 class Wall { 
@@ -166,10 +183,10 @@ class Wall {
 const win = {
   roomName: 'win',
   wallStyle: [],
-  info: [`You've Escaped the Castle!`, 
-/*  `You have collected these Treasures...`,
-  `${ printItems() }`,
-  `I'm sure you'll kill a few monsters when they're added to the game...`,
+  info: [`You've Escaped the Castle!`, '', '',
+  `You have collected these`, `Treasures...`, '',
+  `${ printItems() }`, '', '',
+  /*`I'm sure you'll kill a few monsters when they're added to the game...`,
   `And I'm sure you'll have a score when a scoring system is added!`,*/ //// i will add these back in later, I didn't have time to figure out wrapping
   `- Press any key - `,],
   roomDescription: '',
@@ -178,7 +195,40 @@ const win = {
 const death = {
   roomName: 'death',
   wallStyle: [],
-  info: [`You're have failed to Escape!`, `- Press any key -`],
+  info: [`You're have failed to Escape!`,
+  `You have collected these`, `Treasures...`, '',
+  `${ printItems() }`, '', '',
+  `- Press any key -`],
+  roomDescription: '',
+};
+
+const intro = {
+  roomName: 'intro',
+  wallStyle: [],
+  info: [
+    '   You are trapped in a deserted Castle',
+    'and you must escape. It is rumored that',
+    'the castle is full of treasures. Can',
+    'you find them all?','',
+    'Use the cursor keypad to move your man',
+    'around the rooms. To pick up a visible',
+    'item, just run into it. To pick up an',
+    'item not displayed on the screen, use',
+    'the command GET. To attack monsters',
+    'just run into them, but only if you',
+    'have a weapon.The computer accepts most',
+    'two word commands. There are 83 rooms &',
+    '13 treasures.', '',
+    'One hint:Look at everything carefully!','',
+    '- Press any key -',
+    ],
+    roomDescription: '',
+};
+
+const splash = {
+  roomName: 'splash',
+  wallStyle: thecastle,
+  info: ['           Castle Adventure'], //// should be 'press P to Play / press I for Info' at the bottom of the screen
   roomDescription: '',
 };
 
@@ -208,7 +258,7 @@ const castleCourtyard = {
   roomName: 'Castle Courtyard',
   roomOrder: 1,
   roomDescription: 'You are in the Castle Courtyard. To the north is a large Doorway. To the south is a large Gate.',
-  roomItems: [scepter, lamp],
+  roomItems: [],
   lookableAttributes: [gate, courtyardWall, stonewalls],
   wallStyle: courtyard,
 };
@@ -260,7 +310,7 @@ const throneRoom = {
   wallStyle: throneRm,
   roomDescription: 'You are in the Throne Room. There is a Large Throne at one end of the room.',
   roomMonsters: [],
-  roomItems: [scepter],
+  roomItems: [],
   addlAttr: [throne],
   lookableAttributes: [stonewalls, throne],
 };
@@ -302,9 +352,7 @@ const storageroom = {
   wallStyle: storagewalls,
   roomDescription: 'You are in the Storage room. There are Two large shelves in the middle, and a Small Staircase in one corner.',
   lookableAttributes: [stonewalls],
-  stairs: [
-    {direction: 0, x: 100, y: 150}
-    ],
+  stairs: [{direction: 0, x: 100, y: 150}],
     floor: 1,
 };
 
@@ -355,13 +403,15 @@ const firstWindingPassage = {
   wallStyle: windingwalls,
   roomDescription: 'You are in a Winding Passage.',
   floor: 0,
-  trap: {
-    userX: 100,
-    x: 0,
-    y: 225,
-    w: 415,
-    h: 130,
-  }
+  trap: {userX: 100, x: 0, y: 225, w: 415, h: 130,},
+  roomItems: [necklace],
+};
+
+const scepterRoom = {
+  name: 'King\'s Secret Chamber',
+  wallStyle: scepterroom,
+  roomDescription: `You are in the King's Secret room. The walls are many colors.`, /// well they aren't yet because that would require.... a bunch of stuff. In the original, the walls were grey and slightly darker grey
+  roomItems: [scepter],
 };
 
 
@@ -393,6 +443,7 @@ castleMuseum.connectingRooms = [undefined, gardenTop, eastDining, undefined];
 //// level 2
 wineCellar.connectingRooms = [undefined, undefined, basementPassage, undefined, undefined, storageroom];
 basementPassage.connectingRooms = [wineCellar, undefined, firstWindingPassage, undefined, undefined, undefined];
-firstWindingPassage.connectingRooms = [firstWindingPassage, undefined, undefined, undefined, undefined, undefined];
+firstWindingPassage.connectingRooms = [basementPassage, undefined, undefined, scepterRoom, undefined, undefined];
+scepterRoom.connectingRooms = [undefined, firstWindingPassage, undefined, undefined, undefined, undefined];
 
 
