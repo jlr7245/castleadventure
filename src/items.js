@@ -2,7 +2,7 @@ console.log('items connected');
 
 
 const user = {
-  name: 'Hello',
+  name: 'Kevin Bales',
   inventory: [],
   inventoryAsString: [],
   fightPoints: 30,
@@ -33,7 +33,7 @@ const gate = {
 
 const courtyardWall = {
   name: 'wall',
-  look: `The writing on the wall says "${ user.name } WAS HERE - 1984"... looks like you've been here a while.`,
+  look: `The writing on the wall says "${ user.name } WAS HERE - 1984"... `,
   carriable: false,
 };
 
