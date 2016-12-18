@@ -85,7 +85,7 @@ const eyeglasses = {
   name: 'eye glasses',
   x: 300,
   y: 300,
-  str: '@@',
+  str: '∞',
   look: `They're Bifocals`,
   getit: 'Done.',
   gettable: true,
@@ -93,20 +93,82 @@ const eyeglasses = {
   wearable: true,
   wear: `Ok. I'm wearing them.`,
   waveable: false,
-}
+};
+
+const scepter = {
+  name: 'scepter',
+  x: 300,
+  y: 200,
+  str: 'ß',
+  look: 'It looks Expensive!',
+  gettable: false,
+  carriable: true,
+  wearable: false,
+  waveable: true,
+};
+
+const helmet = {
+  name: 'helmet',
+  x: 300,
+  y: 300,
+  str: '¢',
+  look: 'It looks Tough!',
+  gettable: false,
+  carriable: true,
+  wearable: true,
+  wear: `Ok. I'm wearing it.`,
+  waveable: false,
+};
+
+const sword = {
+  name: 'sword',
+  x: 400,
+  y: 300,
+  str: '†',
+  look: 'It looks Sharp!',
+  gettable: false,
+  carriable: true,
+  wearable: false,
+  waveable: false,
+};
+
+const wand = {
+  name: 'wand',
+  x: 400,
+  y: 400,
+  str: '-',
+  look: 'It looks Magical!',
+  gettable: false,
+  carriable: true,
+  wearable: false,
+  waveable: true,
+};
+
+const lamp = {
+  name: 'lamp',
+  x: 600,
+  y: 300,
+  str: '♠',
+  look: 'It is lit Magically.',
+  gettable: false,
+  carriable: true,
+  wearable: false,
+  waveable: false,
+};
+
 
 ///////// OBJECT ARRAYS
 
 let commandableObjects = [
   /* room attributes */ gate, courtyardWall, stonewalls,
   /* drawn attributes */ throne, kitchentable, 
-  /* drawn items */ necklace, book, eyeglasses
+  /* drawn items */ necklace, book, eyeglasses, scepter, helmet, sword, lamp, wand,
   ];
   
 let commandableObjectsAsStrings = [
   /* room attributes */ 'gate', 'walls', 'wall', 
   /* drawn attributes */ 'throne', 'table', 
-  /* drawn items */ 'necklace', 'book', 'glasses',
+  /* drawn items */ 'necklace', 'book', 'glasses', 'scepter', 'helmet', 'sword', 'lamp', 'wand', 
   ];
 
 
@@ -157,7 +219,15 @@ function read(obj, str) {
   
 }
 
-let arrayOfCommands = [look, getit, getit, wear, read];
+function rub(obj, str) {
+  if ((obj == lamp) && (user.inventory.indexOf(obj) !== -1)) {
+    tellme.innerHTML = `There's no Genii in this Lamp!`;
+  } else if (user.inventory.indexOf(obj) !== -1) {
+    tellme.innerHTML = `The ${ str.toUpperCase() } is cleaner now.`;
+  } else tellme.innerHTML = `You don't have a ${ str.toUpperCase() }!`;
+}
 
-let commandsAsStrings = ['look', 'get', 'take', 'wear', 'read'];
+let arrayOfCommands = [look, getit, getit, wear, read, wave, rub];
+
+let commandsAsStrings = ['look', 'get', 'take', 'wear', 'read', 'wave', 'rub'];
 

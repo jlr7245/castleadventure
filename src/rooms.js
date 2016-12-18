@@ -175,6 +175,7 @@ const westBallroom = {
   lookableAttributes: [stonewalls],
   hasMonster: true,
   roomDescription: 'You are in The West Ballroom. There are arch ways to the north & east; a spiral staircase in one corner.',
+  roomItems: [wand],
 };
 
 const eastBallroom = {
@@ -189,6 +190,7 @@ const westDining = {
   wallStyle: square2NorthEastSouth, //// actually this should be square2NorthEastSouth
   lookableAttributes: [stonewalls],
   roomDescription: 'You are in the West Dining room. There are 2 door ways to the north, & arch ways to the east & south.',
+  roomItems: [helmet],
 };
 
 const eastDining = {
@@ -213,7 +215,7 @@ const throneRoom = {
   wallStyle: throneRm,
   roomDescription: 'You are in the Throne Room. There is a Large Throne at one end of the room.',
   roomMonsters: [],
-  roomItems: [],
+  roomItems: [scepter],
   addlAttr: [throne],
   lookableAttributes: [stonewalls, throne],
 };
@@ -270,6 +272,7 @@ const gardenTop = {
   wallStyle: gardenTopWalls,
   roomDescription: 'You are In The North end of the Castle Garden. It is overgrown with bushes.',
   lookableAttributes: [stonewalls],
+  roomItems: [lamp]
 };
 
 const castleMuseum = {
@@ -277,6 +280,7 @@ const castleMuseum = {
   wallStyle: castleMuseumWalls,
   roomDescription: 'You are in The Castle Museum. This room was once decorated with many artifacts.',
   lookableAttributes: [stonewalls],
+  roomItems: [sword],
 };
 
 /// setting connecting rooms
