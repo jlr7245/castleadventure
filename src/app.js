@@ -5,6 +5,11 @@ const motionDif = 20;
 const alph = "abcdefghijklmnopqrstuvwxyz ";
 const alphabetArray = alph.split('');
 
+const dropSound = new Audio('sounds/drop.mp3');
+const whatSound = new Audio('sounds/what.mp3');
+const getSound = new Audio('sounds/get.mp3');
+const collideSound = new Audio('sounds/collision.mp3');
+
 /*const user = {
   name: 'Hello',
   inventory: [],
@@ -107,10 +112,12 @@ class User {
       if (pix[i] === 204) {
         this.collision = 1;
         console.log('bonk');
+        collideSound.play();
         break;
       } else if (pix[i] === 187) {
         this.collision = 2;
         console.log('oooh, theres something here');
+        getSound.play();
         break;
       }
     }
@@ -196,7 +203,7 @@ class Room {
   }
   
   sayWhat() {
-    // play the what sound
+    whatSound.play();
     tellme.innerHTML = 'What???';
     window.setTimeout(function(){tellme.innerHTML='';}, 100);
     window.setTimeout(function(){tellme.innerHTML = 'What???'},150);
