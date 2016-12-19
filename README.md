@@ -39,6 +39,19 @@ class Room {
 }
 ```
 
+##The Making of Castle Adventure
+<dl>
+<dt>Author</dt>
+<dd>J Silverstein</dd>
+<dt>Castle Adventure created by</dt>
+<dd>Kevin Bales</dd>
+<dt>Credits</dt>
+<dd>Sounds from the <a href="http://www.vgmpf.com/Wiki/index.php?title=Castle_Adventure_%28DOS%29" target="_blank">VideoGame Music Preservation Foundation</a> and <a href="https://www.youtube.com/watch?v=PmiEld3Zw4A" target="_blank">SwitchLeft on YouTube</a></dd>
+<dd><a href="http://simonsarris.com/blog/510-making-html5-canvas-useful" target="_blank">A Gentle Introduction to Making HTML5 Canvas Interactive</a> by Simon Sarris was very helpful to me when I was trying to figure out how to structure a script that edits the canvas.</dd>
+<dd>Artem Gordinsky's CodePen <a href="http://codepen.io/ArtemGordinsky/pen/GnLBq" target="_blank">"Blinking Cursor in CSS3"</a> was very helpful when I went to make the user input field, although I used a different method of implementation.</dd>
+<dd>I was the recipient of some very helpful advice on StackOverflow: see <a href="http://stackoverflow.com/questions/41169190/using-class-methods-to-draw-on-html5-canvas-scope-problems-js-es6" target="_blank">here</a> and <a href="http://stackoverflow.com/questions/41175295/resetting-a-class-parameter-upon-new-instance-of-that-class-js-es6" target="_blank">here</a>.
+</dl>
+
 ## Opportunities for Further Growth
 
 While the game as it currently is accomplishes the goals I wished to accomplish, there is, as always, room for growth.
@@ -77,19 +90,6 @@ While the game as it currently is accomplishes the goals I wished to accomplish,
 
 #### Level 5 _Castle's Sky_
 - Generative version of the game - rooms are created on the fly without being specifically defined.
-
-##The Making of Castle Adventure
-<dl>
-<dt>Author</dt>
-<dd>J Silverstein</dd>
-<dt>Castle Adventure created by</dt>
-<dd>Kevin Bales</dd>
-<dt>Credits</dt>
-<dd>Sounds from the <a href="http://www.vgmpf.com/Wiki/index.php?title=Castle_Adventure_%28DOS%29" target="_blank">VideoGame Music Preservation Foundation</a> and <a href="https://www.youtube.com/watch?v=PmiEld3Zw4A" target="_blank">SwitchLeft on YouTube</a></dd>
-<dd><a href="http://simonsarris.com/blog/510-making-html5-canvas-useful" target="_blank">A Gentle Introduction to Making HTML5 Canvas Interactive</a> by Simon Sarris was very helpful to me when I was trying to figure out how to structure a script that edits the canvas.</dd>
-<dd>Artem Gordinsky's CodePen <a href="http://codepen.io/ArtemGordinsky/pen/GnLBq" target="_blank">"Blinking Cursor in CSS3"</a> was very helpful when I went to make the user input field, although I used a different method of implementation.</dd>
-<dd>I was the recipient of some very helpful advice on StackOverflow: see <a href="http://stackoverflow.com/questions/41169190/using-class-methods-to-draw-on-html5-canvas-scope-problems-js-es6" target="_blank">here</a> and <a href="http://stackoverflow.com/questions/41175295/resetting-a-class-parameter-upon-new-instance-of-that-class-js-es6" target="_blank">here</a>.
-</dl>
 
 ##Checking Win/Loss State
 I spent most of my childhood playing this dang game and losing -- years and years -- so, even though this is a very abbreviated version, I thought I'd add the instructions on how to beat it. :) See annotated map (original from [We Love Dos Games](http://www.welovedosgames.net/article/Castle%20Adventure%20by%20Kevin%20Bales%20-%20Maps%20and%20Walkthrough/) ) below - the objects & stairs in each room differ a little bit in my game, but the layout is the same.
