@@ -2,7 +2,7 @@ console.log('here are the rooms!');
 
 ////////// ROOM WALL COORDINATES
 
-const courtyard = [ [0, 0, 290, 35], [450, 0, 320, 35], 
+const courtyard = [ [0, 0, 325, 35], [450, 0, 320, 35], 
   [0, 0, 35, 588], [745, 0, 35, 588], [0, 554, 778, 35]  ];
 
 const annexextended = [
