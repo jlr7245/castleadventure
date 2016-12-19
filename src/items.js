@@ -152,6 +152,7 @@ const wand = {
   carriable: true,
   wearable: false,
   waveable: true,
+  wave: 'Oh no! This hasn\'t been built yet.',
 };
 
 const lamp = {
