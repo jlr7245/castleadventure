@@ -106,6 +106,7 @@ const eyeglasses = {
 
 const scepter = {
   name: 'scepter',
+  x: 300,
   y: 200,
   str: 'ß',
   look: 'It looks Expensive!',

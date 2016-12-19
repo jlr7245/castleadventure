@@ -229,15 +229,12 @@ class Room {
 
   //// INPUT UNDERSTANDING LOGIC ///
   inputChecker(arr) {
-    console.log(arr);
     if (arr.length == 1 && arr[0] == 'inventory') {
       if (user.inventory.length === 0) {
         tellme.innerHTML = 'You aren\'t carrying anything yet!';
       } else {
         let inven = '';
         for (let i = 0; i < user.inventory.length; i++) {
-          console.log(user.inventory);
-          console.log(user.inventory[i]);
           inven += `${ user.inventory[i].str } ${ user.inventory[i].name.toUpperCase() } <br/>`;
         }
         tellme.innerHTML = `- Inventory - <br/> ${ inven }`;
