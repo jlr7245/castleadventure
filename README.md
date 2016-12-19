@@ -86,7 +86,27 @@ While the game as it currently is accomplishes the goals I wished to accomplish,
 <dd>Kevin Bales</dd>
 <dt>Credits</dt>
 <dd>Sounds from the <a href="http://www.vgmpf.com/Wiki/index.php?title=Castle_Adventure_%28DOS%29" target="_blank">VideoGame Music Preservation Foundation</a> and <a href="https://www.youtube.com/watch?v=PmiEld3Zw4A" target="_blank">SwitchLeft on YouTube</a></dd>
-<dd><a href="http://simonsarris.com/blog/510-making-html5-canvas-useful" target="_blank">A Gentle Introduction to Making HTML5 Canvas Interactive</a> by Simon Sarris was invaluable to me when I was trying to figure out how to structure a script that edits the canvas.</dd>
+<dd><a href="http://simonsarris.com/blog/510-making-html5-canvas-useful" target="_blank">A Gentle Introduction to Making HTML5 Canvas Interactive</a> by Simon Sarris was very helpful to me when I was trying to figure out how to structure a script that edits the canvas.</dd>
 <dd>Artem Gordinsky's CodePen <a href="http://codepen.io/ArtemGordinsky/pen/GnLBq" target="_blank">"Blinking Cursor in CSS3"</a> was very helpful when I went to make the user input field, although I used a different method of implementation.</dd>
 <dd>I was the recipient of some very helpful advice on StackOverflow: see <a href="http://stackoverflow.com/questions/41169190/using-class-methods-to-draw-on-html5-canvas-scope-problems-js-es6" target="_blank">here</a> and <a href="http://stackoverflow.com/questions/41175295/resetting-a-class-parameter-upon-new-instance-of-that-class-js-es6" target="_blank">here</a>.
 </dl>
+
+##Checking Win/Loss State
+I spent most of my childhood playing this dang game and losing -- years and years -- so, even though this is a very abbreviated version, I thought I'd add the instructions on how to beat it. :) See annotated map (original from [We Love Dos Games](http://www.welovedosgames.net/article/Castle%20Adventure%20by%20Kevin%20Bales%20-%20Maps%20and%20Walkthrough/) ) below - the objects & stairs in each room differ a little bit in my game, but the layout is the same.
+
+<dl>
+<dt>Checking for a Win</dt>
+<dd>Get the Lamp (in the North Garden)</dd>
+<dd>Get the Necklace (in the Queen's Dressing Room)</dd>
+<dd>Wear the Necklace (this is important!)<dd>
+<dd>Go downstairs (in the corner of the Storage Room)<dd>
+<dd>I don't have a map for downstairs, but there's only one route -- go to the King's Secret Room at the end of the Winding Passage<dd>
+<dd>Head back upstairs to the Courtyard</dd>
+<dd>Wave the scepter!</dd>
+<dt>Checking for a Loss</dt>
+<dd>Get the Lamp</dd>
+<dd>Go downstairs in the Storage Room</dd>
+<dd>You should die halfway through the Winding Passage :) </dd>
+</dl>
+
+![annotated map](assets/annotatedmap.jpg)
