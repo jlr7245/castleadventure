@@ -165,7 +165,8 @@ class Wall {
     this.y = arr[1];
     this.w = arr[2];
     this.h = arr[3];
-    this.fill = '#cccccc';
+    //if (arr[5] !== undefined) this.fill = arr[5]; // setting up to draw different colored objects
+    /*else*/ this.fill = '#cccccc';
   }
   
   draw(ctx) { 
@@ -185,7 +186,7 @@ const win = {
   wallStyle: [],
   info: [`You've Escaped the Castle!`, '', '',
   `You have collected these`, `Treasures...`, '',
-  `${ printItems() }`, '', '',
+  `${ printItems() }`, '', '', //// this doesn't work for no apparent reason? it gives me what i want in the console.
   /*`I'm sure you'll kill a few monsters when they're added to the game...`,
   `And I'm sure you'll have a score when a scoring system is added!`,*/ //// i will add these back in later, I didn't have time to figure out wrapping
   `- Press any key - `,],
@@ -282,7 +283,7 @@ const eastBallroom = {
 
 const westDining = {
   roomName: 'West Dining',
-  wallStyle: square2NorthEastSouth, //// actually this should be square2NorthEastSouth
+  wallStyle: square2NorthEastSouth, 
   lookableAttributes: [stonewalls],
   roomDescription: 'You are in the West Dining room. There are 2 door ways to the north, & arch ways to the east & south.',
   roomItems: [helmet],
@@ -290,8 +291,7 @@ const westDining = {
 
 const eastDining = {
   roomName: 'East Dining',
-  wallStyle: squareLargeEast, //// actually should be squareLargeEast
-  /*connectingRooms: [undefined, undefined, eastBallroom, centralHall],*/
+  wallStyle: squareLargeEast, 
   lookableAttributes: [stonewalls],
   roomDescription: 'You are in the East Dining room. The large opening to the east leads to the garden patio.',
   roomItems: [eyeglasses],
@@ -302,7 +302,6 @@ const anteRoom = {
   wallStyle: annex,
   roomDescription: 'You are in the Ante Room. Here People waited for an audience with the King. It was once lined with benches.',
   lookableAttributes: [stonewalls],
-  /*connectingRooms: [undefined, undefined, centralHall, undefined],*/
 };
 
 const throneRoom = {
@@ -353,7 +352,7 @@ const storageroom = {
   roomDescription: 'You are in the Storage room. There are Two large shelves in the middle, and a Small Staircase in one corner.',
   lookableAttributes: [stonewalls],
   stairs: [{direction: 0, x: 100, y: 150}],
-    floor: 1,
+  floor: 1,
 };
 
 const gardenBottom = {
@@ -404,7 +403,7 @@ const firstWindingPassage = {
   roomDescription: 'You are in a Winding Passage.',
   floor: 0,
   trap: {userX: 100, x: 0, y: 225, w: 415, h: 130,},
-  roomItems: [necklace],
+  roomItems: [],
 };
 
 const scepterRoom = {
@@ -440,7 +439,7 @@ gardenTop.connectingRooms = [undefined, undefined, gardenBottom, castleMuseum];
 castleMuseum.connectingRooms = [undefined, gardenTop, eastDining, undefined];
 
 
-//// level 2
+//// level 0
 wineCellar.connectingRooms = [undefined, undefined, basementPassage, undefined, undefined, storageroom];
 basementPassage.connectingRooms = [wineCellar, undefined, firstWindingPassage, undefined, undefined, undefined];
 firstWindingPassage.connectingRooms = [basementPassage, undefined, undefined, scepterRoom, undefined, undefined];

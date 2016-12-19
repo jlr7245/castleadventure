@@ -94,6 +94,8 @@ While the game as it currently is accomplishes the goals I wished to accomplish,
 ##Checking Win/Loss State
 I spent most of my childhood playing this dang game and losing -- years and years -- so, even though this is a very abbreviated version, I thought I'd add the instructions on how to beat it. :) See annotated map (original from [We Love Dos Games](http://www.welovedosgames.net/article/Castle%20Adventure%20by%20Kevin%20Bales%20-%20Maps%20and%20Walkthrough/) ) below - the objects & stairs in each room differ a little bit in my game, but the layout is the same.
 
+Also, you can Look, Rub, Get, Take, Wave, and Wear objects, and check your Inventory.
+
 <dl>
 <dt>Checking for a Win</dt>
 <dd>Get the Lamp (in the North Garden)</dd>
