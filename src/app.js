@@ -162,7 +162,7 @@ class Room {
     this.drawStairs(this.ctx);
     this.writeInfo();
     this.itsATrap(this.ctx);
-  } /// end of constructor
+  } // end of constructor
   
  //// SETTING UP TO DRAW WALLS /// 
   drawWalls() {
