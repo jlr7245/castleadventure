@@ -411,6 +411,7 @@ const scepterRoom = {
   wallStyle: scepterroom,
   roomDescription: `You are in the King's Secret room. The walls are many colors.`, /// well they aren't yet because that would require.... a bunch of stuff. In the original, the walls were grey and slightly darker grey
   roomItems: [scepter],
+  floor: 0,
 };
 
 
