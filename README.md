@@ -4,12 +4,12 @@ Original Castle Adventure      |  J's Castle Adventure
 :-------------------------:|:-------------------------:
 ![](assets/castleadventure.png)  |  ![](assets/jscastleadventure.png)
 
-##What is Castle Adventure?
+## What is Castle Adventure?
 - Castle Adventure is an old freeware/shareware DOS game. Built in 1984 by teenaged programmer Kevin Bales, it quickly spread. Today, it still occupies a place of fond nostalgia for many of us who started playing computer games in the DOS era, but has never been replicated fully for the modern internet browser.
 - For more information, see [The Key to the Castle](http://www.thealmightyguru.com/Reviews/CastleAdventure/CA-TheGame.html)
 
 
-##Technical Discussion
+## Technical Discussion
 <dl>
 <dt>HTML</dt>
 <dd>The game makes heavy use of the HTML5 Canvas element - drawing on and manipulating it with Javascript functions.</dd>
@@ -19,7 +19,7 @@ Original Castle Adventure      |  J's Castle Adventure
 <dd>I made use of JavaScript ES6 to build out the logic, display, and interaction behind the game.</dd>
 </dl>
 
-###Notes on Game Structure
+### Notes on Game Structure
 
 The driving forces behind the game are three ES6 classes - `User`, `CanvasState`, and `Room`. `CanvasState` describes the state of the HTML5 canvas element; `User` contains the functions for moving, colliding, and switching between rooms; and `Room` takes both of those classes along with a room name to display the current room with the user's position and inventory on the screen. I think of it as a big funnel: all the pieces are dumped into the `Room` funnel and align to create what the user sees on the page.
 
@@ -39,7 +39,7 @@ class Room {
 }
 ```
 
-##The Making of Castle Adventure
+## The Making of Castle Adventure
 <dl>
 <dt>Author</dt>
 <dd>J Silverstein</dd>
@@ -91,7 +91,7 @@ While the game as it currently is accomplishes the goals I wished to accomplish,
 #### Level 5 _Castle's Sky_
 - Generative version of the game - rooms are created on the fly without being specifically defined.
 
-##Checking Win/Loss State
+## Checking Win/Loss State
 I spent most of my childhood playing this dang game and losing -- years and years -- so, even though this is a very abbreviated version, I thought I'd add the instructions on how to beat it. :) See annotated map (original from [We Love Dos Games](http://www.welovedosgames.net/article/Castle%20Adventure%20by%20Kevin%20Bales%20-%20Maps%20and%20Walkthrough/) ) below - the objects & stairs in each room differ a little bit in my game, but the layout is the same.
 
 Also, you can Look, Rub, Get, Take, Wave, and Wear objects, and check your Inventory.
